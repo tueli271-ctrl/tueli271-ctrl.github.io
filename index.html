@@ -1,6 +1,137 @@
 <!doctype html>
-<html>
-  <body>
-    <h1>Hello World</h1>
-  </body>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trang chủ</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      margin:0;
+      background:#f6f7fb;
+      color:#111;
+    }
+    header{
+      background:#111;
+      color:white;
+      padding:18px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    header a{
+      color:white;
+      text-decoration:none;
+      margin-left:14px;
+      opacity:0.9;
+    }
+    header a:hover{ opacity:1; text-decoration:underline; }
+
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+    .hero{
+      background:white;
+      border:1px solid #eee;
+      border-radius:16px;
+      padding:22px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.06);
+      margin-top:18px;
+    }
+    .hero h1{ margin:0 0 8px; font-size:34px; }
+    .muted{ color:#666; }
+
+    .row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; }
+    .btn{
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid #ddd;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-block;
+    }
+    .btn.primary{ background:#111; color:white; border-color:#111; }
+    .btn.ghost{ background:white; color:#111; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:16px;
+    }
+    .card{
+      background:white;
+      border:1px solid #eee;
+      border-radius:14px;
+      padding:14px;
+    }
+    footer{
+      text-align:center;
+      padding:24px;
+      color:#666;
+    }
+    @media (max-width: 820px){
+      .grid{ grid-template-columns: 1fr; }
+      .hero h1{ font-size:28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div><b>Trang chủ của tôi</b></div>
+    <nav>
+      <a href="#about">Giới thiệu</a>
+      <a href="#projects">Dự án</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <section class="hero">
+      <h1>Xin chào 👋</h1>
+      <p class="muted">Đây là “màn hình chính” (trang chủ) của website mình.</p>
+
+      <div class="row">
+        <a class="btn primary" href="#projects">Xem dự án</a>
+        <a class="btn ghost" href="#contact">Liên hệ</a>
+      </div>
+    </section>
+
+    <section id="about" class="card" style="margin-top:14px;">
+      <h2>Giới thiệu</h2>
+      <p>Mình là <b>(điền tên)</b>. Mình tạo website này để đăng thông tin và những thứ mình làm.</p>
+    </section>
+
+    <section id="projects" class="card" style="margin-top:14px;">
+      <h2>Dự án</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Dự án 1</h3>
+          <p class="muted">Mô tả ngắn.</p>
+        </div>
+        <div class="card">
+          <h3>Dự án 2</h3>
+          <p class="muted">Mô tả ngắn.</p>
+        </div>
+        <div class="card">
+          <h3>Dự án 3</h3>
+          <p class="muted">Mô tả ngắn.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="card" style="margin-top:14px;">
+      <h2>Liên hệ</h2>
+      <p>Email: <a href="mailto:youremail@gmail.com">youremail@gmail.com</a></p>
+      <p>Facebook: <a href="https://facebook.com/" target="_blank" rel="noreferrer">link của bạn</a></p>
+    </section>
+  </div>
+
+  <footer>© 2025 - Website của tôi</footer>
+</body>
 </html>
