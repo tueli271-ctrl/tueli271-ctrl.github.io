@@ -1,139 +1,530 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <link rel="icon" type="image/png" href="/favicon.png">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trang chủ</title>
+  <title>Toán học — Trang chủ</title>
+  <meta name="description" content="Trang tổng hợp chuyên đề: Đại số, Tổ hợp, Hình học, Số học." />
+  <meta name="theme-color" content="#0b0d12" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+
   <style>
+    :root{
+      --bg: #0b0d12;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.66);
+
+      --bg2: #f6f7fb;
+      --card: #ffffff;
+      --cardStroke: rgba(0,0,0,.08);
+      --shadow: 0 14px 35px rgba(0,0,0,.10);
+
+      --radius: 18px;
+      --radius2: 14px;
+
+      --max: 1060px;
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
     body{
-      font-family: Arial, sans-serif;
-      margin:0;
-      background:#f6f7fb;
-      color:#111;
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: #111;
+      background: var(--bg2);
     }
-    header{
-      background:#111;
-      color:white;
-      padding:18px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-    header a{
-      color:white;
-      text-decoration:none;
-      margin-left:14px;
-      opacity:0.9;
-    }
-    header a:hover{ opacity:1; text-decoration:underline; }
+    a{ color: inherit; text-decoration: none; }
+    .container{ max-width: var(--max); margin: 0 auto; padding: 18px; }
 
-    .container{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 22px;
+    /* ===== Top header (dark) ===== */
+    .top{
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
+                  radial-gradient(900px 600px at 80% 0%, rgba(255,255,255,.08), transparent 55%),
+                  linear-gradient(180deg, #0b0d12, #0b0d12);
+      color: var(--text);
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
+
+    .nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+    }
+    .brand{
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 750;
+      letter-spacing: .2px;
+    }
+    .brand img{
+      width: 28px; height: 28px;
+      border-radius: 10px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+      background: rgba(255,255,255,.08);
+    }
+
+    .navlinks{
+      display: flex; gap: 10px; flex-wrap: wrap;
+      align-items: center; justify-content: flex-end;
+    }
+    .pill{
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--text);
+      font-size: 14px;
+      opacity: .92;
+      transition: transform .12s ease, background .12s ease, opacity .12s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); opacity: 1; }
+
+    /* ===== Hero ===== */
     .hero{
-      background:white;
-      border:1px solid #eee;
-      border-radius:16px;
-      padding:22px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.06);
-      margin-top:18px;
+      padding: 18px 0 24px;
     }
-    .hero h1{ margin:0 0 8px; font-size:34px; }
-    .muted{ color:#666; }
-
-    .row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; }
+    .heroGrid{
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .heroCard{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 16px 40px rgba(0,0,0,.22);
+      overflow: hidden;
+    }
+    .heroMain{
+      padding: 18px;
+    }
+    .kicker{
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+    .title{
+      margin: 12px 0 6px;
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: -0.4px;
+    }
+    .subtitle{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+      max-width: 62ch;
+    }
+    .ctaRow{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      align-items: center;
+    }
     .btn{
-      padding:10px 14px;
-      border-radius:12px;
-      border:1px solid #ddd;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 650;
+      transition: transform .12s ease, background .12s ease;
+      user-select: none;
     }
-    .btn.primary{ background:#111; color:white; border-color:#111; }
-    .btn.ghost{ background:white; color:#111; }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.14); }
+    .btn.primary{
+      background: #ffffff;
+      color: #111;
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn.primary:hover{ background: rgba(255,255,255,.92); }
 
-    .grid{
+    .heroSide{
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+    .mini{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      padding: 12px;
+    }
+    .mini b{ display:block; font-size: 14px; margin-bottom: 6px; }
+    .mini p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    .search{
+      display:flex; gap: 10px; align-items: center;
+      margin-top: 12px;
+    }
+    .search input{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      outline: none;
+    }
+    .search input::placeholder{ color: rgba(255,255,255,.55); }
+
+    /* ===== Main content ===== */
+    .section{
+      padding: 18px 0 0;
+    }
+    .section h2{
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -0.2px;
+    }
+    .muted2{ color: rgba(0,0,0,.65); line-height: 1.6; margin: 0 0 14px; }
+
+    .cards4{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:16px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
     }
     .card{
-      background:white;
-      border:1px solid #eee;
-      border-radius:14px;
-      padding:14px;
+      background: var(--card);
+      border: 1px solid var(--cardStroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      transition: transform .12s ease, box-shadow .12s ease;
+      position: relative;
+      overflow: hidden;
     }
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(0,0,0,.14);
+    }
+    .badge{
+      display:inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.06);
+      border: 1px solid rgba(0,0,0,.08);
+      color: rgba(0,0,0,.72);
+    }
+    .card h3{
+      margin: 10px 0 6px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+    .card p{
+      margin: 0 0 12px;
+      color: rgba(0,0,0,.65);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .go{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: #111;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(0,0,0,.03);
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .list{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(0,0,0,.72);
+      line-height: 1.75;
+    }
+    .list a{
+      color: #0b57d0;
+      text-decoration: none;
+    }
+    .list a:hover{ text-decoration: underline; }
+
+    /* Footer */
     footer{
+      margin-top: 22px;
+      padding: 24px 0 34px;
+      color: rgba(0,0,0,.6);
       text-align:center;
-      padding:24px;
-      color:#666;
     }
-    @media (max-width: 820px){
-      .grid{ grid-template-columns: 1fr; }
-      .hero h1{ font-size:28px; }
+
+    /* Active link underline (JS) */
+    .pill.active{
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.18);
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .cards4{ grid-template-columns: repeat(2, 1fr); }
+      .grid2{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px){
+      .cards4{ grid-template-columns: 1fr; }
+      .title{ font-size: 28px; }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div><b>Trang chủ của tôi</b></div>
-    <nav>
-      <a href="#about">Giới thiệu</a>
-      <a href="#projects">Dự án</a>
-      <a href="#contact">Liên hệ</a>
-    </nav>
-  </header>
+  <div class="top">
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <img src="/favicon.png" alt="logo">
+          <span>Toán học</span>
+        </div>
 
-  <div class="container">
-    <section class="hero">
-      <h1>Xin chào 👋</h1>
-      <p class="muted">Đây là “màn hình chính” (trang chủ) của website mình.</p>
+        <div class="navlinks">
+          <a class="pill" href="#algebra">Đại số</a>
+          <a class="pill" href="#combi">Tổ hợp</a>
+          <a class="pill" href="#geo">Hình học</a>
+          <a class="pill" href="#nt">Số học</a>
+          <a class="pill" href="#contact">Liên hệ</a>
+        </div>
+      </div>
 
-      <div class="row">
-        <a class="btn primary" href="#projects">Xem dự án</a>
-        <a class="btn ghost" href="#contact">Liên hệ</a>
+      <div class="hero">
+        <div class="heroGrid">
+          <div class="heroCard">
+            <div class="heroMain">
+              <span class="kicker">📌 Trang chủ • ghi chú & tài liệu</span>
+              <h1 class="title">Chào mừng bạn đến với “Math Hub”</h1>
+              <p class="subtitle">
+                Nơi mình tổng hợp bài toán, lời giải và tài liệu theo 4 mảng:
+                <b>Đại số</b>, <b>Tổ hợp</b>, <b>Hình học</b>, <b>Số học</b>.
+              </p>
+
+              <div class="ctaRow">
+                <a class="btn primary" href="#topics">Vào chuyên đề</a>
+                <a class="btn" href="#latest">Xem bài mới</a>
+              </div>
+
+              <div class="search">
+                <input id="q" placeholder="Tìm nhanh (ví dụ: 'bất đẳng thức', 'đồng dư', 'C_n^k'...)" />
+                <button class="btn" id="btnFind" type="button">Tìm</button>
+              </div>
+              <p class="subtitle" style="margin-top:10px">
+                Gợi ý: ô “Tìm” sẽ cuộn đến phần có từ khóa trên trang.
+              </p>
+            </div>
+          </div>
+
+          <div class="heroCard">
+            <div class="heroSide">
+              <div class="mini">
+                <b>🎯 Mục tiêu</b>
+                <p>Lưu trữ gọn gàng, dễ xem, dễ share link cho bạn bè.</p>
+              </div>
+              <div class="mini">
+                <b>🧭 Cách dùng</b>
+                <p>Bấm vào 4 chuyên đề bên dưới, rồi điền dần link bài/tài liệu của bạn.</p>
+              </div>
+              <div class="mini">
+                <b>⚡ Tip</b>
+                <p>Sau khi chỉnh code trên GitHub, đôi khi cần Ctrl+F5 để cập nhật.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- hero -->
+    </div><!-- container -->
+  </div><!-- top -->
+
+  <main class="container">
+    <section class="section" id="topics">
+      <h2>Chuyên đề</h2>
+      <p class="muted2">Chọn một mảng để đi đến phần nội dung tương ứng.</p>
+
+      <div class="cards4">
+        <a class="card" href="#algebra">
+          <span class="badge">Algebra</span>
+          <h3>Đại số</h3>
+          <p>Phương trình, đa thức, bất đẳng thức, dãy số…</p>
+          <span class="go">Vào mục →</span>
+        </a>
+
+        <a class="card" href="#combi">
+          <span class="badge">Combinatorics</span>
+          <h3>Tổ hợp</h3>
+          <p>Đếm, cấu hình, Dirichlet, đồ thị, trò chơi…</p>
+          <span class="go">Vào mục →</span>
+        </a>
+
+        <a class="card" href="#geo">
+          <span class="badge">Geometry</span>
+          <h3>Hình học</h3>
+          <p>Tam giác, đường tròn, biến hình, điểm đặc biệt…</p>
+          <span class="go">Vào mục →</span>
+        </a>
+
+        <a class="card" href="#nt">
+          <span class="badge">Number Theory</span>
+          <h3>Số học</h3>
+          <p>Chia hết, đồng dư, LTE, số nguyên tố…</p>
+          <span class="go">Vào mục →</span>
+        </a>
       </div>
     </section>
 
-    <section id="about" class="card" style="margin-top:14px;">
-      <h2>Giới thiệu</h2>
-      <p>Mình là <b>(điền tên)</b>. Mình tạo website này để đăng thông tin và những thứ mình làm.</p>
-    </section>
+    <section class="section" id="latest">
+      <h2>Bài mới</h2>
+      <p class="muted2">Chỗ này bạn thay bằng link bài của bạn sau (hiện để mẫu).</p>
 
-    <section id="projects" class="card" style="margin-top:14px;">
-      <h2>Dự án</h2>
-      <div class="grid">
+      <div class="grid2">
         <div class="card">
-          <h3>Dự án 1</h3>
-          <p class="muted">Mô tả ngắn.</p>
+          <span class="badge">Mẫu</span>
+          <h3>Danh sách nhanh</h3>
+          <ul class="list">
+            <li><a href="#">[Đại số] Bài 1 — (điền link)</a></li>
+            <li><a href="#">[Tổ hợp] Bài 2 — (điền link)</a></li>
+            <li><a href="#">[Hình học] Bài 3 — (điền link)</a></li>
+            <li><a href="#">[Số học] Bài 4 — (điền link)</a></li>
+          </ul>
         </div>
+
         <div class="card">
-          <h3>Dự án 2</h3>
-          <p class="muted">Mô tả ngắn.</p>
-        </div>
-        <div class="card">
-          <h3>Dự án 3</h3>
-          <p class="muted">Mô tả ngắn.</p>
+          <span class="badge">Ghi chú</span>
+          <h3>Cách thêm bài</h3>
+          <ul class="list">
+            <li>Tạo file mới: <code>algebra-001.html</code> rồi link vào.</li>
+            <li>Hoặc để link Google Drive/PDF (nếu public).</li>
+            <li>Muốn đẹp hơn: làm thư mục <code>/posts/</code> để chứa bài.</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="card" style="margin-top:14px;">
+    <section class="section" id="algebra">
+      <h2>Đại số</h2>
+      <div class="card">
+        <p class="muted2" style="margin-bottom:10px">Bạn thay các link dưới đây bằng bài/tài liệu thật của bạn.</p>
+        <ul class="list">
+          <li><a href="#">Bất đẳng thức (mẫu)</a></li>
+          <li><a href="#">Đa thức (mẫu)</a></li>
+          <li><a href="#">Phương trình (mẫu)</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="combi">
+      <h2>Tổ hợp</h2>
+      <div class="card">
+        <ul class="list">
+          <li><a href="#">Nguyên lý Dirichlet (mẫu)</a></li>
+          <li><a href="#">Đếm cấu hình (mẫu)</a></li>
+          <li><a href="#">Đồ thị (mẫu)</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="geo">
+      <h2>Hình học</h2>
+      <div class="card">
+        <ul class="list">
+          <li><a href="#">Đường tròn (mẫu)</a></li>
+          <li><a href="#">Tam giác (mẫu)</a></li>
+          <li><a href="#">Biến hình (mẫu)</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="nt">
+      <h2>Số học</h2>
+      <div class="card">
+        <ul class="list">
+          <li><a href="#">Đồng dư (mẫu)</a></li>
+          <li><a href="#">LTE (mẫu)</a></li>
+          <li><a href="#">Nguyên tố (mẫu)</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
       <h2>Liên hệ</h2>
-      <p>Email: <a href="mailto:youremail@gmail.com">youremail@gmail.com</a></p>
-      <p>Facebook: <a href="https://facebook.com/" target="_blank" rel="noreferrer">link của bạn</a></p>
+      <div class="card">
+        <p class="muted2" style="margin-bottom:8px">Bạn sửa email/facebook của bạn ở đây.</p>
+        <ul class="list">
+          <li>Email: <a href="mailto:youremail@gmail.com">youremail@gmail.com</a></li>
+          <li>Facebook: <a href="https://facebook.com/" target="_blank" rel="noreferrer">link của bạn</a></li>
+        </ul>
+      </div>
     </section>
-  </div>
 
-  <footer>© 2025 - Website của tôi</footer>
+    <footer>
+      © 2025 — Toán học • Hosted on GitHub Pages
+    </footer>
+  </main>
+
+  <script>
+    // Highlight nav item + quick find on page
+    const pills = Array.from(document.querySelectorAll(".pill"));
+    const sections = ["algebra","combi","geo","nt","contact"].map(id => document.getElementById(id));
+
+    function setActive(id){
+      pills.forEach(a => a.classList.toggle("active", a.getAttribute("href")==="#" + id));
+    }
+
+    const io = new IntersectionObserver((entries)=>{
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+      if(visible?.target?.id) setActive(visible.target.id);
+    }, { rootMargin: "-40% 0px -55% 0px", threshold: [0.1, 0.2, 0.35, 0.5] });
+
+    sections.forEach(s => s && io.observe(s));
+
+    function findText(){
+      const q = (document.getElementById("q").value || "").trim().toLowerCase();
+      if(!q) return;
+
+      // find first section that contains keyword
+      const all = document.querySelectorAll("section, .card, .heroMain");
+      for(const node of all){
+        const text = (node.innerText || "").toLowerCase();
+        if(text.includes(q)){
+          node.scrollIntoView({behavior:"smooth", block:"start"});
+          return;
+        }
+      }
+      alert("Không tìm thấy trên trang. (Hiện tìm trong trang này thôi)");
+    }
+
+    document.getElementById("btnFind").addEventListener("click", findText);
+    document.getElementById("q").addEventListener("keydown", (e)=>{ if(e.key==="Enter") findText(); });
+  </script>
 </body>
 </html>
 
