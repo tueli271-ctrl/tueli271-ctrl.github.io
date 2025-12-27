@@ -41,15 +41,24 @@
     <section class="panel section">
       <h2>🧾 Bài mẫu</h2>
 
-      <div class="grid">
-        <div class="post">
-          <a href="#">Bất đẳng thức: \(a^2+b^2\ge 2ab\)</a>
-          <div class="meta">
-            <span class="tag level">N1</span>
-            <span class="tag">BĐT</span>
-            <span class="tag">Cơ bản</span>
-          </div>
-        </div>
+<div class="grid" id="algebraList"></div>
+
+<script src="posts-algebra.js"></script>
+<script>
+  const list = document.getElementById("algebraList");
+  const posts = window.POSTS_ALGEBRA || [];
+
+  list.innerHTML = posts.map(p => `
+    <div class="post">
+      <a href="view.html?cat=algebra&id=${p.id}">${p.title}</a>
+      <div class="meta">
+        <span class="tag level">${p.level}</span>
+        ${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+      </div>
+    </div>
+  `).join("");
+</script>
+
 
         <div class="post">
           <a href="#">Đa thức: nghiệm dương duy nhất</a>
