@@ -1,0 +1,42 @@
+/* =========================
+   Math Hub - Core Styles
+   Colors mapping:
+   - Algebra: green
+   - Combi:  purple
+   - Geo:    orange
+   - NT:     blue
+========================= */
+
+:root{
+  --bg0:#07090c;
+  --bg1:#0b0f16;
+  --card: rgba(255,255,255,.06);
+  --card2: rgba(255,255,255,.08);
+  --border: rgba(255,255,255,.10);
+  --border2: rgba(255,255,255,.14);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.70);
+  --muted2: rgba(255,255,255,.58);
+
+  --radius: 18px;
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+
+  /* default */
+  --accent:#22c55e;
+  --accent2:#86efac;
+  --accent3:#dcfce7;
+}
+
+/* Themes */
+body.theme-algebra{ --accent:#22c55e; --accent2:#86efac; --accent3:#dcfce7; }
+body.theme-combi  { --accent:#8b5cf6; --accent2:#a78bfa; --accent3:#ddd6fe; }
+body.theme-geo    { --accent:#f59e0b; --accent2:#fbbf24; --accent3:#ffedd5; }
+body.theme-nt     { --accent:#3b82f6; --accent2:#93c5fd; --accent3:#dbeafe; }
+
+/* Home uses 4 accents */
+body.theme-home{
+  --accent1:#22c55e; /* algebra */
+  --accent2:#8b5cf6; /* combi */
+  --accent3:#f59e0b; /* geo */
+  --accent4:#3b82f6; /* nt */
+}
