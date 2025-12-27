@@ -1,9 +1,6 @@
-// app.js - MathHub core (dispatcher) + particles
+// app.js - particles background (canvas #bg)
 window.MathHub = window.MathHub || {};
 
-// ===============
-// 1) Particles
-// ===============
 MathHub.initParticles = function initParticles(){
   const canvas = document.getElementById("bg");
   if(!canvas) return;
@@ -43,6 +40,7 @@ MathHub.initParticles = function initParticles(){
   function draw(){
     ctx.clearRect(0,0,W,H);
 
+    // dots
     ctx.globalAlpha = 0.9;
     for(const p of pts){
       p.x += p.vx; p.y += p.vy;
@@ -55,6 +53,7 @@ MathHub.initParticles = function initParticles(){
       ctx.fill();
     }
 
+    // lines
     for(let i=0;i<pts.length;i++){
       for(let j=i+1;j<pts.length;j++){
         const a = pts[i], b = pts[j];
@@ -77,40 +76,3 @@ MathHub.initParticles = function initParticles(){
   requestAnimationFrame(draw);
 };
 
-// =======================
-// 2) Nav highlight (optional)
-// =======================
-MathHub.initNavActive = function initNavActive(){
-  const links = document.querySelectorAll(".navlinks a");
-  if(!links.length) return;
-
-  const path = location.pathname.split("/").pop() || "index.html";
-  links.forEach(a => {
-    const href = (a.getAttribute("href") || "").split("/").pop();
-    if(href === path) a.classList.add("is-active");
-  });
-};
-
-// =======================
-// 3) Page registry (future-proof)
-// =======================
-MathHub.pages = MathHub.pages || {};
-MathHub.registerPage = function(name, fn){
-  MathHub.pages[name] = fn;
-};
-
-// =======================
-// 4) Boot: tự chạy khi load trang
-// =======================
-MathHub.boot = function boot(){
-  // tác vụ chung
-  MathHub.initParticles();
-  MathHub.initNavActive();
-
-  // tác vụ theo trang (nếu có)
-  const page = document.body && document.body.dataset ? document.body.dataset.page : "";
-  const fn = page ? MathHub.pages[page] : null;
-  if(typeof fn === "function") fn();
-};
-
-document.addEventListener("DOMContentLoaded", () => MathHub.boot());
