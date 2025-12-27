@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-<body class="theme-nt" data-page="nt">
+<body class="theme-nt">
   <div class="bg-aurora"></div>
   <canvas id="bg"></canvas>
 
@@ -36,29 +36,36 @@
         <h1>Số học</h1>
         <p>Chia hết • Đồng dư • LTE • Ước • Hàm số học</p>
       </div>
-      <div class="badge"><span class="dot"></span> Number Theory</div>
+      <div class="badge"><span class="dot"></span> NT</div>
+    </section>
+
+    <section class="panel section">
+      <h2>🧩 Thể loại</h2>
+
+      <div class="taxbar">
+        <a class="btn primary" id="ntTaxToggle" href="javascript:void(0)">Mở / đóng bộ lọc</a>
+        <a class="btn" id="ntClearFilters" href="javascript:void(0)">Xoá lọc</a>
+      </div>
+
+      <!-- Panel 3 cột (Độ khó / Thể loại / Cách làm) sẽ được JS đổ vào -->
+      <div id="ntTaxPanel" class="taxpanel tax-hidden"></div>
     </section>
 
     <section class="panel section">
       <h2>📌 Danh sách bài</h2>
 
-      <!-- Tạm thời để mẫu 1 dòng. Sau này bạn làm giống algebra: postlist + view -->
-      <div class="postlist">
-        <a class="postrow" href="view.html">
-          <div class="num">01</div>
-          <div class="label">Bài mẫu (Số học)</div>
-          <div class="go">→</div>
-        </a>
-      </div>
+      <!-- Danh sách bài sẽ được JS đổ vào -->
+      <div id="ntList" class="postlist"></div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
-  <!-- JS: nếu app.js đang ở assets/js thì đổi đường dẫn -->
+  <!-- particles -->
   <script src="app.js"></script>
-  <script>
-    if (window.MathHub && MathHub.initParticles) MathHub.initParticles();
-  </script>
+  <script> if (window.MathHub && MathHub.initParticles) MathHub.initParticles(); </script>
+
+  <!-- NT modules loader (tự load 00..04 và tự gọi MathHub.NT.init()) -->
+  <script src="assets/js/nt/nt-loader.js"></script>
 </body>
 </html>
