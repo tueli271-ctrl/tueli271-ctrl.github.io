@@ -3,27 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tổ hợp • Math Hub</title>
+  <title>Math Hub • Tổ hợp</title>
 
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="style.css" />
-
-  <script>
-    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] } };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-<body class="theme-combi">
+<body class="theme-combi" data-page="combi">
   <div class="bg-aurora"></div>
   <canvas id="bg"></canvas>
 
   <header class="topbar">
     <div class="inner">
       <div class="brand">
-        <div class="logo"><img src="favicon.png" alt="logo"></div>
+        <div class="logo"><img src="assets/img/favicon.png" alt="logo"></div>
         <div>Math Hub</div>
       </div>
+
       <nav class="navlinks">
         <a class="pill" href="index.html">Trang chủ</a>
         <a class="pill" href="algebra.html">Đại số</a>
@@ -38,39 +34,27 @@
     <section class="panel pagehead">
       <div class="left">
         <h1>Tổ hợp</h1>
-        <p>Danh sách bài tổ hợp.</p>
+        <p>Danh sách bài tổ hợp. (Trang này sẽ giống giao diện trang chủ.)</p>
       </div>
-      <div class="badge"><span class="dot"></span> Tổ hợp</div>
+      <div class="badge"><span class="dot"></span> Combi</div>
     </section>
 
     <section class="panel section">
-      <h2>🧾 Danh sách bài</h2>
-      <div class="grid" id="list"></div>
+      <h2>📌 Danh sách bài</h2>
+      <div class="postlist">
+        <a class="postrow" href="view.html">
+          <div class="num">01</div>
+          <div class="label">Bài mẫu</div>
+          <div class="go">→</div>
+        </a>
+      </div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
+  <!-- nếu app.js của bạn vẫn ở root thì để "app.js", nếu đã move thì đổi thành "assets/js/app.js" -->
   <script src="app.js"></script>
-  <script> if (window.MathHub?.initParticles) MathHub.initParticles(); </script>
-
-  <script src="posts-combi.js"></script>
-  <script>
-    const list = document.getElementById("list");
-    const posts = (window.POSTS_COMBI || []).slice();
-    posts.sort((a,b) => String(a.id).localeCompare(String(b.id), "vi"));
-
-    list.innerHTML = posts.map((p,i) => `
-      <div class="post">
-        <a href="view.html?cat=combi&id=${encodeURIComponent(p.id)}">
-          <b>#${i+1}</b> ${p.title}
-        </a>
-      </div>
-    `).join("");
-
-    window.addEventListener("load", () => {
-      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
-    });
-  </script>
+  <script> if (window.MathHub && MathHub.initParticles) MathHub.initParticles(); </script>
 </body>
 </html>
