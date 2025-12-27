@@ -2,7 +2,7 @@
 window.POSTS_ALGEBRA = [
   {
     id: "001",
-    title: "Dãy logarit: x_{n+1} = ln((e^{x_n}-1)/x_n)",
+    title: "Dãy logarit: \\(x_{n+1}=\\ln\\left(\\frac{e^{x_n}-1}{x_n}\\right)\\)",
     level: "N3",
     tags: ["Dãy số", "Giới hạn"],
     content: String.raw`
