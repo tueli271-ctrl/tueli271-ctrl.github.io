@@ -3,11 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Math Hub</title>
+  <title>Math Hub • Trang chủ</title>
 
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="theme-color" content="#0b0f19">
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -23,6 +21,7 @@
       </div>
 
       <nav class="navlinks">
+        <a class="pill" href="index.html">Trang chủ</a>
         <a class="pill" href="algebra.html">Đại số</a>
         <a class="pill" href="combi.html">Tổ hợp</a>
         <a class="pill" href="geo.html">Hình học</a>
@@ -32,118 +31,48 @@
   </header>
 
   <main class="wrap">
-    <section class="panel hero">
-      <div>
-        <div class="kicker">📚 Bộ 4 mảng • ghi chú • bài toán • lời giải</div>
-
-        <h1>Chào mừng bạn đến với “Math Hub”</h1>
-        <p class="lead">
-          Đây là “trang chủ” của bạn: gom bài theo <b>Đại số – Tổ hợp – Hình học – Số học</b>,
-          mỗi mảng một màu (như 4 “cuốn sách”).
-        </p>
-
-        <div class="cta">
-          <a class="btn primary" href="#latest">Xem bài mới</a>
-          <a class="btn ghost" href="#how">Cách dùng</a>
-        </div>
-
-        <div class="books">
-          <a class="book algebra" href="algebra.html">
-            <p class="title">Đại số</p>
-            <p class="desc">PT, BĐT, đa thức, giải tích tổ hợp…</p>
-          </a>
-          <a class="book combi" href="combi.html">
-            <p class="title">Tổ hợp</p>
-            <p class="desc">Đếm, nguyên lý, đồ thị, bất biến…</p>
-          </a>
-          <a class="book geo" href="geo.html">
-            <p class="title">Hình học</p>
-            <p class="desc">Tam giác, đường tròn, cực–đối cực…</p>
-          </a>
-          <a class="book nt" href="nt.html">
-            <p class="title">Số học</p>
-            <p class="desc">Đồng dư, LTE, nguyên tố, p-adic…</p>
-          </a>
-        </div>
+    <section class="panel pagehead">
+      <div class="left">
+        <h1>Trang chủ</h1>
+        <p>Chọn mảng bạn muốn xem. Mỗi mảng có danh sách bài và trang đọc bài có MathJax.</p>
       </div>
+      <div class="badge"><span class="dot"></span> Math Hub</div>
+    </section>
 
-      <div class="stack">
-        <div class="item">
-          <h3>🎯 Mục tiêu</h3>
-          <p>Lưu trữ gọn gàng, đẹp, có link chia sẻ nhanh cho bạn bè.</p>
-        </div>
-        <div class="item">
-          <h3>🧠 Mẹo Toán</h3>
-          <p>Muốn gõ công thức đẹp: dùng <b>MathJax</b> (mình sẽ gắn sẵn trong các trang con).</p>
-        </div>
-        <div class="item">
-          <h3>⚡ Tip kỹ thuật</h3>
-          <p>Sau khi sửa code trên GitHub Pages, đôi khi cần <b>Ctrl + F5</b> để bỏ cache.</p>
-        </div>
+    <section class="panel section">
+      <h2>📚 4 mảng</h2>
+
+      <div class="home-grid">
+        <a class="book algebra" href="algebra.html">
+          <div class="t">Đại số</div>
+          <div class="d">PT • BĐT • Đa thức • Hàm số</div>
+          <div class="arrow">Vào xem →</div>
+        </a>
+
+        <a class="book combi" href="combi.html">
+          <div class="t">Tổ hợp</div>
+          <div class="d">Đếm • Bất biến • Dirichlet • Graph</div>
+          <div class="arrow">Vào xem →</div>
+        </a>
+
+        <a class="book geo" href="geo.html">
+          <div class="t">Hình học</div>
+          <div class="d">Tam giác • Đường tròn • Bổ đề</div>
+          <div class="arrow">Vào xem →</div>
+        </a>
+
+        <a class="book nt" href="nt.html">
+          <div class="t">Số học</div>
+          <div class="d">Chia hết • Đồng dư • LTE • Ước</div>
+          <div class="arrow">Vào xem →</div>
+        </a>
       </div>
     </section>
 
-    <section id="latest" class="panel section">
-      <h2>✨ Bài mới (mẫu)</h2>
-      <div class="grid">
-        <div class="post">
-          <a href="algebra.html">BĐT mẫu • Cauchy – Jensen</a>
-          <div class="meta">
-            <span class="tag level">N3</span>
-            <span class="tag">Đại số</span>
-            <span class="tag">Bất đẳng thức</span>
-          </div>
-        </div>
-        <div class="post">
-          <a href="combi.html">Đếm đường đi • DP / nguyên lý Dirichlet</a>
-          <div class="meta">
-            <span class="tag level">N2</span>
-            <span class="tag">Tổ hợp</span>
-            <span class="tag">Đếm</span>
-          </div>
-        </div>
-        <div class="post">
-          <a href="geo.html">Điểm Miquel • cấu hình đường tròn</a>
-          <div class="meta">
-            <span class="tag level">N4</span>
-            <span class="tag">Hình học</span>
-            <span class="tag">Đường tròn</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="how" class="panel section">
-      <h2>🧩 Cách dùng nhanh</h2>
-      <div class="grid">
-        <div class="post">
-          <a href="#">1) Thêm bài</a>
-          <p style="margin:10px 0 0; color:rgba(255,255,255,.68); line-height:1.5">
-            Vào trang con (Đại/Tổ/Hình/Số) → sửa danh sách “Bài” trong HTML → commit.
-          </p>
-        </div>
-        <div class="post">
-          <a href="#">2) Gõ công thức</a>
-          <p style="margin:10px 0 0; color:rgba(255,255,255,.68); line-height:1.5">
-            Viết LaTeX như <code>\(a^2+b^2\)</code> hoặc <code>\[...\]</code> (MathJax sẽ render).
-          </p>
-        </div>
-        <div class="post">
-          <a href="#">3) Đổi màu giống bìa sách</a>
-          <p style="margin:10px 0 0; color:rgba(255,255,255,.68); line-height:1.5">
-            Mở <b>style.css</b> → phần “THEME COLORS” → thay hex màu.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <footer>© 2025 • Math Hub (GitHub Pages)</footer>
+    <footer>© 2025 • Math Hub</footer>
   </main>
 
   <script src="app.js"></script>
-  <script>
-    MathHub.initParticles();
-  </script>
+  <script> MathHub.initParticles(); </script>
 </body>
 </html>
-
