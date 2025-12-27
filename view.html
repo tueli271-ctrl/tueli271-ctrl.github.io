@@ -8,111 +8,19 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css" />
 
-  <!-- MathJax (CHỈ 1 LẦN) -->
+  <!-- MathJax (1 lần thôi) -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(','\\)'], ['$', '$']],
-        displayMath: [['\\[','\\]'], ['$$','$$']]
+        displayMath: [['\\[','\\]']]
       }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-
-  <!-- CSS thêm cho header bài (đẹp hơn) -->
-  <style>
-    .post-hero{
-      margin: 18px 0 14px;
-      border-radius: 22px;
-      padding: 20px 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(135deg, rgba(20,22,26,.78), rgba(14,16,20,.55));
-      box-shadow: 0 18px 50px rgba(0,0,0,.40);
-      position: relative;
-      overflow: hidden;
-    }
-    .post-hero::before{
-      content:"";
-      position:absolute;
-      inset:-140px -140px auto auto;
-      width:420px; height:420px;
-      background: radial-gradient(circle, rgba(40,200,120,.18), transparent 62%);
-      pointer-events:none;
-    }
-    .post-hero::after{
-      content:"";
-      position:absolute;
-      inset:auto auto -170px -160px;
-      width:520px; height:520px;
-      background: radial-gradient(circle, rgba(40,200,120,.12), transparent 64%);
-      pointer-events:none;
-    }
-    .post-hero-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      position:relative;
-      z-index:1;
-    }
-    .backlink{
-      color: rgba(255,255,255,.75);
-      text-decoration:none;
-      font-weight:700;
-    }
-    .backlink:hover{ color:#fff; text-decoration:underline; }
-
-    .cat-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.92);
-      font-weight:800;
-    }
-    .cat-badge .dot{
-      width:10px;height:10px;border-radius:99px;
-      background: rgba(40,200,120,.9);
-      box-shadow: 0 0 0 4px rgba(40,200,120,.18);
-    }
-
-    .post-title{
-      margin: 12px 0 0;
-      font-size: clamp(24px, 3vw, 44px);
-      line-height: 1.12;
-      letter-spacing: -0.02em;
-      color: rgba(255,255,255,.96);
-      position:relative;
-      z-index:1;
-    }
-
-    .post-meta{
-      margin-top: 12px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      color: rgba(255,255,255,.72);
-      position:relative;
-      z-index:1;
-    }
-    .tag.level{
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(40,200,120,.16);
-      border: 1px solid rgba(40,200,120,.30);
-      color: rgba(235,255,245,.92);
-      font-weight:900;
-    }
-    .sep{ opacity:.55; }
-  </style>
 </head>
 
-<body class="theme-algebra">
+<body>
   <div class="bg-aurora"></div>
   <canvas id="bg"></canvas>
 
@@ -134,24 +42,19 @@
   </header>
 
   <main class="wrap">
-    <!-- HEADER BÀI (đã làm đẹp) -->
-    <section class="post-hero">
-      <div class="post-hero-top">
-        <a class="backlink" id="backLink" href="algebra.html">← Đại số</a>
-        <div class="cat-badge"><span class="dot"></span> <span id="catName">Đại số</span></div>
+    <section class="panel pagehead">
+      <div class="left">
+        <h1 id="postTitle">Đang tải bài...</h1>
+        <p id="postMeta" style="margin:8px 0 0; opacity:.75;"></p>
       </div>
-
-      <!-- title có thể chứa LaTeX nếu bạn dùng \( ... \) hoặc $...$ -->
-      <h1 class="post-title" id="postTitle">Đang tải bài...</h1>
-
-      <div class="post-meta" id="postMeta"></div>
+      <div class="badge"><span class="dot"></span> <span id="catName">...</span></div>
     </section>
 
     <section class="panel section">
       <div class="post" id="postContent"></div>
 
       <div style="margin-top:14px;">
-        <a class="btn ghost" id="backBtn" href="algebra.html">← Quay lại Đại số</a>
+        <a class="btn ghost" id="backLink" href="index.html">← Quay lại</a>
       </div>
     </section>
 
@@ -159,74 +62,65 @@
   </main>
 
   <script src="app.js"></script>
-  <script> MathHub.initParticles(); </script>
+  <script>
+    if (window.MathHub?.initParticles) MathHub.initParticles();
+  </script>
 
-  <!-- Data (bạn có thể thêm 3 file còn lại sau) -->
+  <!-- Load data của cả 4 mảng để view.html đọc được mọi cat -->
   <script src="posts-algebra.js"></script>
-  <!-- <script src="posts-combi.js"></script> -->
-  <!-- <script src="posts-geo.js"></script> -->
-  <!-- <script src="posts-nt.js"></script> -->
+  <script src="posts-combi.js"></script>
+  <script src="posts-geo.js"></script>
+  <script src="posts-nt.js"></script>
 
   <script>
-    // đọc ?cat=algebra&id=001
     const params = new URLSearchParams(location.search);
-    const rawCat = (params.get("cat") || "algebra").toLowerCase();
-    const id  = (params.get("id")  || "001");
+    const cat = (params.get("cat") || "algebra").toLowerCase();
+    const id  = (params.get("id")  || "").trim();
 
     const CAT = {
-      algebra: { name:"Đại số", page:"algebra.html", theme:"theme-algebra", get: () => (window.POSTS_ALGEBRA || []) },
-      combi:   { name:"Tổ hợp", page:"combi.html",   theme:"theme-combi",   get: () => (window.POSTS_COMBI   || []) },
-      geo:     { name:"Hình học", page:"geo.html",   theme:"theme-geo",     get: () => (window.POSTS_GEO     || []) },
-      nt:      { name:"Số học",  page:"nt.html",     theme:"theme-nt",      get: () => (window.POSTS_NT      || []) },
+      algebra: { name: "Đại số", page: "algebra.html", theme: "theme-algebra", data: () => window.POSTS_ALGEBRA || [] },
+      combi:   { name: "Tổ hợp",  page: "combi.html",   theme: "theme-combi",   data: () => window.POSTS_COMBI   || [] },
+      geo:     { name: "Hình học",page: "geo.html",     theme: "theme-geo",     data: () => window.POSTS_GEO     || [] },
+      nt:      { name: "Số học",  page: "nt.html",      theme: "theme-nt",      data: () => window.POSTS_NT      || [] },
     };
 
-    const cat = CAT[rawCat] ? rawCat : "algebra";
+    const cfg = CAT[cat] || CAT.algebra;
 
-    // set label + back links
-    document.getElementById("catName").textContent = CAT[cat].name;
-    document.getElementById("backLink").href = CAT[cat].page;
-    document.getElementById("backLink").textContent = `← ${CAT[cat].name}`;
-    document.getElementById("backBtn").href = CAT[cat].page;
-    document.getElementById("backBtn").textContent = `← Quay lại ${CAT[cat].name}`;
+    // set theme cho body
+    document.body.className = cfg.theme;
 
-    // set theme class cho body (nếu bạn có CSS theme-combi/theme-geo/theme-nt)
-    document.body.classList.remove("theme-algebra","theme-combi","theme-geo","theme-nt");
-    document.body.classList.add(CAT[cat].theme);
+    // set nhãn + back link
+    document.getElementById("catName").textContent = cfg.name;
+    const back = document.getElementById("backLink");
+    back.href = cfg.page;
+    back.textContent = "← Quay lại " + cfg.name;
 
-    // load data
-    const data = CAT[cat].get();
-    const post = data.find(p => p.id === id);
+    // tìm bài
+    const data = cfg.data();
+    const post = data.find(p => String(p.id) === String(id));
 
     const titleEl = document.getElementById("postTitle");
     const metaEl  = document.getElementById("postMeta");
     const contEl  = document.getElementById("postContent");
 
-    if(!post){
+    if (!id) {
+      titleEl.textContent = "Thiếu id 😅";
+      metaEl.textContent  = "Ví dụ đúng: view.html?cat=algebra&id=001";
+      contEl.innerHTML    = "<p>Hãy mở từ trang danh sách bài để link tự đúng.</p>";
+    } else if (!post) {
       titleEl.textContent = "Không tìm thấy bài 😅";
-      metaEl.innerHTML = `<span class="tag level">?</span><span class="sep">•</span><span>Kiểm tra lại link id=...</span>`;
-      contEl.innerHTML = `<p>Ví dụ đúng: <code>view.html?cat=algebra&id=001</code></p>`;
+      metaEl.textContent  = "Kiểm tra lại id=... hoặc cat=...";
+      contEl.innerHTML    = `<p>Ví dụ đúng: <code>view.html?cat=${cat}&id=001</code></p>`;
     } else {
-      // Cho phép title có LaTeX nếu bạn viết \( ... \) hoặc $...$
-      titleEl.innerHTML = post.title;
-
-      // meta đẹp hơn
-      const tags = (post.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
-      metaEl.innerHTML = `
-        <span class="tag level">${post.level || "N?"}</span>
-        <span class="sep">•</span>
-        <span>${CAT[cat].name}</span>
-        ${(post.tags && post.tags.length) ? `<span class="sep">•</span>${tags}` : ""}
-      `;
-
-      // content
-      contEl.innerHTML = post.content;
+      titleEl.textContent = post.title;
+      // nếu bạn chưa muốn show level/tags thì có thể để trống dòng dưới
+      metaEl.textContent  = [post.level, ...(post.tags||[])].filter(Boolean).join(" • ");
+      contEl.innerHTML    = post.content || "<p>(Chưa có nội dung)</p>";
     }
 
-    // render MathJax sau khi inject HTML
+    // typeset MathJax sau khi nhét HTML
     window.addEventListener("load", () => {
-      if (window.MathJax && MathJax.typesetPromise) {
-        MathJax.typesetPromise([titleEl, metaEl, contEl]);
-      }
+      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
     });
   </script>
 </body>
