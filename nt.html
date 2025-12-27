@@ -7,6 +7,11 @@
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css" />
+
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 
 <body class="theme-nt">
@@ -19,12 +24,12 @@
         <div class="logo"><img src="favicon.png" alt="logo"></div>
         <div>Math Hub</div>
       </div>
-
       <nav class="navlinks">
         <a class="pill" href="index.html">Trang chủ</a>
         <a class="pill" href="algebra.html">Đại số</a>
         <a class="pill" href="combi.html">Tổ hợp</a>
         <a class="pill" href="geo.html">Hình học</a>
+        <a class="pill" href="nt.html">Số học</a>
       </nav>
     </div>
   </header>
@@ -33,56 +38,39 @@
     <section class="panel pagehead">
       <div class="left">
         <h1>Số học</h1>
-        <p>Đồng dư, nguyên tố, LTE, p-adic. (Có MathJax.)</p>
+        <p>Danh sách bài số học.</p>
       </div>
-      <div class="badge"><span class="dot"></span> Màu chủ đạo: Số học</div>
+      <div class="badge"><span class="dot"></span> Số học</div>
     </section>
 
     <section class="panel section">
-      <h2>🧾 Bài mẫu</h2>
-
-      <div class="grid">
-        <div class="post">
-          <a href="#">Đồng dư: \(a\equiv b \pmod n\)</a>
-          <div class="meta">
-            <span class="tag level">N1</span>
-            <span class="tag">Đồng dư</span>
-            <span class="tag">Cơ bản</span>
-          </div>
-        </div>
-
-        <div class="post">
-          <a href="#">LTE: \(v_p(a^n-b^n)\)</a>
-          <div class="meta">
-            <span class="tag level">N4</span>
-            <span class="tag">LTE</span>
-            <span class="tag">Valuation</span>
-          </div>
-        </div>
-
-        <div class="post">
-          <a href="#">Nguyên tố: Euclid và biến thể</a>
-          <div class="meta">
-            <span class="tag level">N2</span>
-            <span class="tag">Nguyên tố</span>
-            <span class="tag">Chứng minh</span>
-          </div>
-        </div>
-      </div>
+      <h2>🧾 Danh sách bài</h2>
+      <div class="grid" id="list"></div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
   <script src="app.js"></script>
-  <script> MathHub.initParticles(); </script>
+  <script> if (window.MathHub?.initParticles) MathHub.initParticles(); </script>
 
-  <!-- MathJax -->
+  <script src="posts-nt.js"></script>
   <script>
-    window.MathJax = {
-      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }
-    };
+    const list = document.getElementById("list");
+    const posts = (window.POSTS_NT || []).slice();
+    posts.sort((a,b) => String(a.id).localeCompare(String(b.id), "vi"));
+
+    list.innerHTML = posts.map((p,i) => `
+      <div class="post">
+        <a href="view.html?cat=nt&id=${encodeURIComponent(p.id)}">
+          <b>#${i+1}</b> ${p.title}
+        </a>
+      </div>
+    `).join("");
+
+    window.addEventListener("load", () => {
+      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
+    });
   </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </body>
 </html>
