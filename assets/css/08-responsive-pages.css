@@ -1,0 +1,127 @@
+/* Responsive */
+@media (max-width: 980px){
+  .home-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px){
+  .home-grid{ grid-template-columns: 1fr; }
+  .navlinks{ gap:8px; }
+  .pill{ padding: 8px 10px; }
+}
+
+/* =========================
+   Algebra - Taxonomy (Thể loại)
+========================= */
+.taxbar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom: 12px;
+}
+
+.taxpanel{
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.tax-hidden{ display:none; }
+
+.taxgrid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 980px){
+  .taxgrid{ grid-template-columns: 1fr; }
+}
+
+.taxcol{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.taxcol h3{
+  margin: 0 0 10px;
+  font-size: 14px;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.88);
+}
+
+.taxchips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+/* Chip: input + span */
+.tax-chip{
+  display:inline-flex;
+  align-items:center;
+  cursor:pointer;
+  user-select:none;
+}
+
+.tax-chip input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.tax-chip span{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.86);
+  font-weight: 800;
+  font-size: 13px;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.tax-chip span:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.16);
+}
+
+.tax-chip input:checked + span{
+  border-color: rgba(255,255,255,.22);
+  background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 0 30px rgba(0,0,0,.25);
+}
+
+/* tiny tags shown in list row (optional) */
+.tax-mini{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top: 6px;
+}
+
+.tax-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.82);
+  font-weight: 850;
+  font-size: 12px;
+}
+
+.tax-pill .dot{
+  width:8px; height:8px;
+  border-radius: 99px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,255,255,.05);
+}
