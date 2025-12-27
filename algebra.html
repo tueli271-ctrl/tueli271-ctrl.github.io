@@ -7,6 +7,11 @@
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css" />
+
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 
 <body class="theme-algebra">
@@ -19,9 +24,9 @@
         <div class="logo"><img src="favicon.png" alt="logo"></div>
         <div>Math Hub</div>
       </div>
-
       <nav class="navlinks">
         <a class="pill" href="index.html">Trang chủ</a>
+        <a class="pill" href="algebra.html">Đại số</a>
         <a class="pill" href="combi.html">Tổ hợp</a>
         <a class="pill" href="geo.html">Hình học</a>
         <a class="pill" href="nt.html">Số học</a>
@@ -33,58 +38,42 @@
     <section class="panel pagehead">
       <div class="left">
         <h1>Đại số</h1>
-        <p>PT, BĐT, đa thức, hàm số. (Có MathJax để gõ công thức.)</p>
+        <p>Danh sách bài đại số (gõ công thức bằng MathJax).</p>
       </div>
-      <div class="badge"><span class="dot"></span> Màu chủ đạo: Đại số</div>
+      <div class="badge"><span class="dot"></span> Đại số</div>
     </section>
 
     <section class="panel section">
-      <h2>📚 Danh sách bài</h2>
-
-      <!-- danh sách sẽ được JS đổ vào đây -->
-      <div class="postlist" id="algebraList"></div>
+      <h2>🧾 Danh sách bài</h2>
+      <div class="grid" id="list"></div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
   <script src="app.js"></script>
-  <script> MathHub.initParticles(); </script>
+  <script> if (window.MathHub?.initParticles) MathHub.initParticles(); </script>
 
-  <!-- Data -->
   <script src="posts-algebra.js"></script>
-
   <script>
-    const list = document.getElementById("algebraList");
+    const list = document.getElementById("list");
     const posts = (window.POSTS_ALGEBRA || []).slice();
 
-    // sort theo id (001,002...) tăng dần cho có trật tự
-    posts.sort((a, b) => {
-      const A = parseInt(a.id, 10);
-      const B = parseInt(b.id, 10);
-      if (!isNaN(A) && !isNaN(B)) return A - B;
-      return String(a.id).localeCompare(String(b.id));
-    });
+    posts.sort((a,b) => String(a.id).localeCompare(String(b.id), "vi"));
 
-    list.innerHTML = posts.map((p, i) => {
-      const num = String(i + 1).padStart(3, "0"); // 001,002,...
-      return `
-        <a class="postrow" href="view.html?cat=algebra&id=${p.id}">
-          <span class="num">${num}</span>
-          <span class="label">Bài ${num}</span>
-          <span class="go">→</span>
+    list.innerHTML = posts.map((p,i) => `
+      <div class="post">
+        <a href="view.html?cat=algebra&id=${encodeURIComponent(p.id)}">
+          <b>#${i+1}</b> ${p.title}
         </a>
-      `;
-    }).join("");
-  </script>
+      </div>
+    `).join("");
 
-  <!-- MathJax (để trang algebra có thể hiển thị công thức nếu bạn muốn sau này) -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }
-    };
+    window.addEventListener("load", () => {
+      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
+    });
   </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </body>
 </html>
+
 
