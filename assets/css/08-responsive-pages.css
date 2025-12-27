@@ -125,3 +125,37 @@
   background: var(--accent);
   box-shadow: 0 0 0 3px rgba(255,255,255,.05);
 }
+/* =========================
+   Interactions / Animations
+   (append to 05-components.css)
+========================= */
+
+.btn, .pill, .postrow, .tax-chip span{
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* press */
+.btn:active,
+.pill:active,
+.postrow:active,
+.tax-chip span:active{
+  transform: translateY(0) scale(0.98);
+}
+
+/* focus (keyboard) */
+.btn:focus-visible,
+.pill:focus-visible,
+.postrow:focus-visible,
+.tax-chip span:focus-visible{
+  outline: 2px solid rgba(255,255,255,.22);
+  outline-offset: 2px;
+}
+
+/* a bit smoother hover */
+.btn:hover,
+.pill:hover,
+.postrow:hover{
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
