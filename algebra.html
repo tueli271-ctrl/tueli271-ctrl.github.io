@@ -39,56 +39,46 @@
     </section>
 
     <section class="panel section">
-      <h2>🧾 Bài mẫu</h2>
+      <h2>📚 Danh sách bài</h2>
 
-<div class="grid" id="algebraList"></div>
-
-<script src="posts-algebra.js"></script>
-<script>
-  const list = document.getElementById("algebraList");
-  const posts = window.POSTS_ALGEBRA || [];
-
-  list.innerHTML = posts.map(p => `
-    <div class="post">
-      <a href="view.html?cat=algebra&id=${p.id}">${p.title}</a>
-      <div class="meta">
-        <span class="tag level">${p.level}</span>
-        ${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}
-      </div>
-    </div>
-  `).join("");
-</script>
-
-
-        <div class="post">
-          <a href="#">Đa thức: nghiệm dương duy nhất</a>
-          <div class="meta">
-            <span class="tag level">N3</span>
-            <span class="tag">Đa thức</span>
-            <span class="tag">Chứng minh</span>
-          </div>
-        </div>
-
-        <div class="post">
-          <a href="#">Hàm số: \(\sum\limits_{k=1}^n k = \frac{n(n+1)}2\)</a>
-          <div class="meta">
-            <span class="tag level">N2</span>
-            <span class="tag">Dãy</span>
-            <span class="tag">Công thức</span>
-          </div>
-        </div>
-      </div>
+      <!-- danh sách sẽ được JS đổ vào đây -->
+      <div class="postlist" id="algebraList"></div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
   <script src="app.js"></script>
+  <script> MathHub.initParticles(); </script>
+
+  <!-- Data -->
+  <script src="posts-algebra.js"></script>
+
   <script>
-    MathHub.initParticles();
+    const list = document.getElementById("algebraList");
+    const posts = (window.POSTS_ALGEBRA || []).slice();
+
+    // sort theo id (001,002...) tăng dần cho có trật tự
+    posts.sort((a, b) => {
+      const A = parseInt(a.id, 10);
+      const B = parseInt(b.id, 10);
+      if (!isNaN(A) && !isNaN(B)) return A - B;
+      return String(a.id).localeCompare(String(b.id));
+    });
+
+    list.innerHTML = posts.map((p, i) => {
+      const num = String(i + 1).padStart(3, "0"); // 001,002,...
+      return `
+        <a class="postrow" href="view.html?cat=algebra&id=${p.id}">
+          <span class="num">${num}</span>
+          <span class="label">Bài ${num}</span>
+          <span class="go">→</span>
+        </a>
+      `;
+    }).join("");
   </script>
 
-  <!-- MathJax -->
+  <!-- MathJax (để trang algebra có thể hiển thị công thức nếu bạn muốn sau này) -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }
@@ -97,3 +87,4 @@
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </body>
 </html>
+
