@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đọc bài • Math Hub</title>
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="theme-algebra">
+  <div class="bg-aurora"></div>
+  <canvas id="bg"></canvas>
+
+  <header class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <div class="logo"><img src="favicon.png" alt="logo"></div>
+        <div>Math Hub</div>
+      </div>
+
+      <nav class="navlinks">
+        <a class="pill" href="index.html">Trang chủ</a>
+        <a class="pill" href="algebra.html">Đại số</a>
+        <a class="pill" href="combi.html">Tổ hợp</a>
+        <a class="pill" href="geo.html">Hình học</a>
+        <a class="pill" href="nt.html">Số học</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel pagehead">
+      <div class="left">
+        <h1 id="postTitle">Đang tải bài...</h1>
+        <p id="postMeta" style="color:rgba(255,255,255,.68); margin:8px 0 0;"></p>
+      </div>
+      <div class="badge"><span class="dot"></span> <span id="catName">Đại số</span></div>
+    </section>
+
+    <section class="panel section">
+      <div class="post" id="postContent"></div>
+      <div style="margin-top:14px;">
+        <a class="btn ghost" href="algebra.html">← Quay lại Đại số</a>
+      </div>
+    </section>
+
+    <footer>© 2025 • Math Hub</footer>
+  </main>
+
+  <script src="app.js"></script>
+  <script> MathHub.initParticles(); </script>
+
+  <!-- Data -->
+  <script src="posts-algebra.js"></script>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  <script>
+    // đọc ?cat=algebra&id=001
+    const params = new URLSearchParams(location.search);
+    const cat = (params.get("cat") || "algebra").toLowerCase();
+    const id  = (params.get("id")  || "001");
+
+    // hiện tại bạn dùng Đại số trước
+    const data = (window.POSTS_ALGEBRA || []);
+    const post = data.find(p => p.id === id);
+
+    const titleEl = document.getElementById("postTitle");
+    const metaEl  = document.getElementById("postMeta");
+    const contEl  = document.getElementById("postContent");
+
+    if(!post){
+      titleEl.textContent = "Không tìm thấy bài 😅";
+      metaEl.textContent = "Kiểm tra lại link id=...";
+      contEl.innerHTML = "<p>Ví dụ đúng: <code>view.html?cat=algebra&id=001</code></p>";
+    } else {
+      titleEl.textContent = post.title;
+      metaEl.textContent = `${post.level} • ${post.tags.join(" • ")}`;
+      contEl.innerHTML = post.content;
+    }
+
+    // render lại MathJax sau khi inject HTML
+    window.addEventListener("load", () => {
+      if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+    });
+  </script>
+</body>
+</html>
