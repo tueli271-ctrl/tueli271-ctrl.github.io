@@ -7,6 +7,11 @@
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css" />
+
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 
 <body class="theme-geo">
@@ -19,11 +24,11 @@
         <div class="logo"><img src="favicon.png" alt="logo"></div>
         <div>Math Hub</div>
       </div>
-
       <nav class="navlinks">
         <a class="pill" href="index.html">Trang chủ</a>
         <a class="pill" href="algebra.html">Đại số</a>
         <a class="pill" href="combi.html">Tổ hợp</a>
+        <a class="pill" href="geo.html">Hình học</a>
         <a class="pill" href="nt.html">Số học</a>
       </nav>
     </div>
@@ -33,56 +38,39 @@
     <section class="panel pagehead">
       <div class="left">
         <h1>Hình học</h1>
-        <p>Đường tròn, cực–đối cực, đẳng giác. (Có MathJax.)</p>
+        <p>Danh sách bài hình học.</p>
       </div>
-      <div class="badge"><span class="dot"></span> Màu chủ đạo: Hình học</div>
+      <div class="badge"><span class="dot"></span> Hình học</div>
     </section>
 
     <section class="panel section">
-      <h2>🧾 Bài mẫu</h2>
-
-      <div class="grid">
-        <div class="post">
-          <a href="#">Góc nội tiếp: \(\angle ACB = \angle ADB\)</a>
-          <div class="meta">
-            <span class="tag level">N2</span>
-            <span class="tag">Đường tròn</span>
-            <span class="tag">Góc</span>
-          </div>
-        </div>
-
-        <div class="post">
-          <a href="#">Miquel: điểm đồng quy</a>
-          <div class="meta">
-            <span class="tag level">N4</span>
-            <span class="tag">Cấu hình</span>
-            <span class="tag">Miquel</span>
-          </div>
-        </div>
-
-        <div class="post">
-          <a href="#">Đẳng giác: \(P,Q\) liên hợp đẳng giác</a>
-          <div class="meta">
-            <span class="tag level">N4</span>
-            <span class="tag">Đẳng giác</span>
-            <span class="tag">Nâng cao</span>
-          </div>
-        </div>
-      </div>
+      <h2>🧾 Danh sách bài</h2>
+      <div class="grid" id="list"></div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
   <script src="app.js"></script>
-  <script> MathHub.initParticles(); </script>
+  <script> if (window.MathHub?.initParticles) MathHub.initParticles(); </script>
 
-  <!-- MathJax -->
+  <script src="posts-geo.js"></script>
   <script>
-    window.MathJax = {
-      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }
-    };
+    const list = document.getElementById("list");
+    const posts = (window.POSTS_GEO || []).slice();
+    posts.sort((a,b) => String(a.id).localeCompare(String(b.id), "vi"));
+
+    list.innerHTML = posts.map((p,i) => `
+      <div class="post">
+        <a href="view.html?cat=geo&id=${encodeURIComponent(p.id)}">
+          <b>#${i+1}</b> ${p.title}
+        </a>
+      </div>
+    `).join("");
+
+    window.addEventListener("load", () => {
+      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
+    });
   </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </body>
 </html>
