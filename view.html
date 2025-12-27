@@ -3,125 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Đọc bài • Math Hub</title>
-
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Xem bài</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- MathJax (1 lần thôi) -->
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['\\(','\\)'], ['$', '$']],
-        displayMath: [['\\[','\\]']]
-      }
-    };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
-
 <body>
-  <div class="bg-aurora"></div>
-  <canvas id="bg"></canvas>
 
-  <header class="topbar">
-    <div class="inner">
-      <div class="brand">
-        <div class="logo"><img src="favicon.png" alt="logo"></div>
-        <div>Math Hub</div>
-      </div>
-
-      <nav class="navlinks">
-        <a class="pill" href="index.html">Trang chủ</a>
-        <a class="pill" href="algebra.html">Đại số</a>
-        <a class="pill" href="combi.html">Tổ hợp</a>
-        <a class="pill" href="geo.html">Hình học</a>
-        <a class="pill" href="nt.html">Số học</a>
-      </nav>
-    </div>
+  <header class="page-header">
+    <button id="backToList" class="btn btn--ghost" type="button">← Quay lại Đại số</button>
+    <h1 id="viewTitle" class="page-title">...</h1>
+    <div id="viewMeta"></div>
   </header>
 
-  <main class="wrap">
-    <section class="panel pagehead">
-      <div class="left">
-        <h1 id="postTitle">Đang tải bài...</h1>
-        <p id="postMeta" style="margin:8px 0 0; opacity:.75;"></p>
-      </div>
-      <div class="badge"><span class="dot"></span> <span id="catName">...</span></div>
-    </section>
-
-    <section class="panel section">
-      <div class="post" id="postContent"></div>
-
-      <div style="margin-top:14px;">
-        <a class="btn ghost" id="backLink" href="index.html">← Quay lại</a>
-      </div>
-    </section>
-
-    <footer>© 2025 • Math Hub</footer>
+  <main class="view-wrap">
+    <article id="viewContent" class="view-content"></article>
   </main>
 
-  <script src="app.js"></script>
-  <script>
-    if (window.MathHub?.initParticles) MathHub.initParticles();
-  </script>
-
-  <!-- Load data của cả 4 mảng để view.html đọc được mọi cat -->
   <script src="posts-algebra.js"></script>
-  <script src="posts-combi.js"></script>
-  <script src="posts-geo.js"></script>
-  <script src="posts-nt.js"></script>
-
-  <script>
-    const params = new URLSearchParams(location.search);
-    const cat = (params.get("cat") || "algebra").toLowerCase();
-    const id  = (params.get("id")  || "").trim();
-
-    const CAT = {
-      algebra: { name: "Đại số", page: "algebra.html", theme: "theme-algebra", data: () => window.POSTS_ALGEBRA || [] },
-      combi:   { name: "Tổ hợp",  page: "combi.html",   theme: "theme-combi",   data: () => window.POSTS_COMBI   || [] },
-      geo:     { name: "Hình học",page: "geo.html",     theme: "theme-geo",     data: () => window.POSTS_GEO     || [] },
-      nt:      { name: "Số học",  page: "nt.html",      theme: "theme-nt",      data: () => window.POSTS_NT      || [] },
-    };
-
-    const cfg = CAT[cat] || CAT.algebra;
-
-    // set theme cho body
-    document.body.className = cfg.theme;
-
-    // set nhãn + back link
-    document.getElementById("catName").textContent = cfg.name;
-    const back = document.getElementById("backLink");
-    back.href = cfg.page;
-    back.textContent = "← Quay lại " + cfg.name;
-
-    // tìm bài
-    const data = cfg.data();
-    const post = data.find(p => String(p.id) === String(id));
-
-    const titleEl = document.getElementById("postTitle");
-    const metaEl  = document.getElementById("postMeta");
-    const contEl  = document.getElementById("postContent");
-
-    if (!id) {
-      titleEl.textContent = "Thiếu id 😅";
-      metaEl.textContent  = "Ví dụ đúng: view.html?cat=algebra&id=001";
-      contEl.innerHTML    = "<p>Hãy mở từ trang danh sách bài để link tự đúng.</p>";
-    } else if (!post) {
-      titleEl.textContent = "Không tìm thấy bài 😅";
-      metaEl.textContent  = "Kiểm tra lại id=... hoặc cat=...";
-      contEl.innerHTML    = `<p>Ví dụ đúng: <code>view.html?cat=${cat}&id=001</code></p>`;
-    } else {
-      titleEl.textContent = post.title;
-      // nếu bạn chưa muốn show level/tags thì có thể để trống dòng dưới
-      metaEl.textContent  = [post.level, ...(post.tags||[])].filter(Boolean).join(" • ");
-      contEl.innerHTML    = post.content || "<p>(Chưa có nội dung)</p>";
-    }
-
-    // typeset MathJax sau khi nhét HTML
-    window.addEventListener("load", () => {
-      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
-    });
-  </script>
+  <script src="site.js"></script>
 </body>
 </html>
