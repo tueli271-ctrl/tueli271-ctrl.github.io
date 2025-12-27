@@ -3,22 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Số học • Math Hub</title>
+  <title>Math Hub • Số học</title>
 
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-<body class="theme-nt">
+<body class="theme-nt" data-page="nt">
   <div class="bg-aurora"></div>
   <canvas id="bg"></canvas>
 
   <header class="topbar">
     <div class="inner">
       <div class="brand">
-        <div class="logo"><img src="favicon.png" alt="logo"></div>
+        <div class="logo"><img src="assets/img/favicon.png" alt="logo"></div>
         <div>Math Hub</div>
       </div>
+
       <nav class="navlinks">
         <a class="pill" href="index.html">Trang chủ</a>
         <a class="pill" href="algebra.html">Đại số</a>
@@ -33,25 +34,31 @@
     <section class="panel pagehead">
       <div class="left">
         <h1>Số học</h1>
-        <p>Danh sách bài số học.</p>
+        <p>Chia hết • Đồng dư • LTE • Ước • Hàm số học</p>
       </div>
-      <div class="badge"><span class="dot"></span> Số học</div>
+      <div class="badge"><span class="dot"></span> Number Theory</div>
     </section>
 
     <section class="panel section">
-      <h2>🧾 Danh sách bài</h2>
-      <div class="postlist" id="list"></div>
+      <h2>📌 Danh sách bài</h2>
+
+      <!-- Tạm thời để mẫu 1 dòng. Sau này bạn làm giống algebra: postlist + view -->
+      <div class="postlist">
+        <a class="postrow" href="view.html">
+          <div class="num">01</div>
+          <div class="label">Bài mẫu (Số học)</div>
+          <div class="go">→</div>
+        </a>
+      </div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
+  <!-- JS: nếu app.js đang ở assets/js thì đổi đường dẫn -->
   <script src="app.js"></script>
-  <script> MathHub.initParticles(); </script>
-
-  <script src="site.js"></script>
   <script>
-    Site.renderList("nt", "list");
+    if (window.MathHub && MathHub.initParticles) MathHub.initParticles();
   </script>
 </body>
 </html>
