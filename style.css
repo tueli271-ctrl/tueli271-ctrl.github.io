@@ -9,14 +9,45 @@
 }
 
 /* ========= THEME COLORS =========
-   Gợi ý: nếu bạn muốn sát màu bìa 4 cuốn sách,
-   chỉ cần sửa 4 bộ màu dưới đây (accent1/2/3). */
-body.theme-home   { --accent1:#8b5cf6; --accent2:#22c55e; --accent3:#3b82f6; --accent4:#f59e0b; } /* trang chính: 4 màu */
-body.theme-algebra{ --accent1:#8b5cf6; --accent2:#a78bfa; --accent3:#ddd6fe; }
-body.theme-combi  { --accent1:#22c55e; --accent2:#86efac; --accent3:#dcfce7; }
-body.theme-geo    { --accent1:#3b82f6; --accent2:#93c5fd; --accent3:#dbeafe; }
-body.theme-nt     { --accent1:#f59e0b; --accent2:#fbbf24; --accent3:#ffedd5; }
+   Mapping:
+   - Đại số: xanh lá
+   - Tổ hợp: tím
+   - Hình học: cam
+   - Số học: xanh nước biển
+*/
 
+/* Trang chính: 4 màu theo thứ tự các “cuốn” (algebra, combi, geo, nt) */
+body.theme-home   {
+  --accent1:#22c55e; /* Đại số - xanh lá */
+  --accent2:#8b5cf6; /* Tổ hợp - tím */
+  --accent3:#f59e0b; /* Hình học - cam */
+  --accent4:#3b82f6; /* Số học - xanh nước biển */
+}
+
+/* Trang con */
+body.theme-algebra{
+  --accent1:#22c55e;
+  --accent2:#86efac;
+  --accent3:#dcfce7;
+}
+
+body.theme-combi  {
+  --accent1:#8b5cf6;
+  --accent2:#a78bfa;
+  --accent3:#ddd6fe;
+}
+
+body.theme-geo    {
+  --accent1:#f59e0b;
+  --accent2:#fbbf24;
+  --accent3:#ffedd5;
+}
+
+body.theme-nt     {
+  --accent1:#3b82f6;
+  --accent2:#93c5fd;
+  --accent3:#dbeafe;
+}
 /* Base colors */
 :root{
   --bg:#070a12;
