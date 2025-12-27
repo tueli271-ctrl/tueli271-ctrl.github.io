@@ -3,66 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Đại số</title>
+  <title>Đại số • Math Hub</title>
 
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body class="theme-algebra">
+  <div class="bg-aurora"></div>
+  <canvas id="bg"></canvas>
+
   <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="/">
-        <img src="/favicon.png" alt="logo">
-        <span>Toán học</span>
-      </a>
+    <div class="inner">
+      <div class="brand">
+        <div class="logo"><img src="favicon.png" alt="logo"></div>
+        <div>Math Hub</div>
+      </div>
 
       <nav class="navlinks">
-        <a class="pill active" href="/algebra.html">Đại số</a>
-        <a class="pill" href="/combi.html">Tổ hợp</a>
-        <a class="pill" href="/geo.html">Hình học</a>
-        <a class="pill" href="/nt.html">Số học</a>
-        <a class="pill" href="/#contact">Liên hệ</a>
+        <a class="pill" href="index.html">Trang chủ</a>
+        <a class="pill" href="combi.html">Tổ hợp</a>
+        <a class="pill" href="geo.html">Hình học</a>
+        <a class="pill" href="nt.html">Số học</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section class="pagehead">
-      <h1>Đại số</h1>
-      <p class="muted">Nơi mình đăng bài/đề/ghi chú về đại số.</p>
+  <main class="wrap">
+    <section class="panel pagehead">
+      <div class="left">
+        <h1>Đại số</h1>
+        <p>PT, BĐT, đa thức, hàm số. (Có MathJax để gõ công thức.)</p>
+      </div>
+      <div class="badge"><span class="dot"></span> Màu chủ đạo: Đại số</div>
     </section>
 
-    <section class="grid">
-      <article class="card">
-        <h3>Bài 1: (tiêu đề)</h3>
-        <p class="muted">Mô tả ngắn 1–2 dòng…</p>
-        <div class="badges">
-          <span class="badge">Dễ</span>
-          <span class="badge">PT/Đa thức</span>
-        </div>
-      </article>
+    <section class="panel section">
+      <h2>🧾 Bài mẫu</h2>
 
-      <article class="card">
-        <h3>Bài 2: (tiêu đề)</h3>
-        <p class="muted">Mô tả ngắn…</p>
-        <div class="badges">
-          <span class="badge">Trung bình</span>
-          <span class="badge">BĐT</span>
+      <div class="grid">
+        <div class="post">
+          <a href="#">Bất đẳng thức: \(a^2+b^2\ge 2ab\)</a>
+          <div class="meta">
+            <span class="tag level">N1</span>
+            <span class="tag">BĐT</span>
+            <span class="tag">Cơ bản</span>
+          </div>
         </div>
-      </article>
 
-      <article class="card">
-        <h3>Bài 3: (tiêu đề)</h3>
-        <p class="muted">Mô tả ngắn…</p>
-        <div class="badges">
-          <span class="badge">Khó</span>
-          <span class="badge">Dãy số</span>
+        <div class="post">
+          <a href="#">Đa thức: nghiệm dương duy nhất</a>
+          <div class="meta">
+            <span class="tag level">N3</span>
+            <span class="tag">Đa thức</span>
+            <span class="tag">Chứng minh</span>
+          </div>
         </div>
-      </article>
+
+        <div class="post">
+          <a href="#">Hàm số: \(\sum\limits_{k=1}^n k = \frac{n(n+1)}2\)</a>
+          <div class="meta">
+            <span class="tag level">N2</span>
+            <span class="tag">Dãy</span>
+            <span class="tag">Công thức</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <div class="footer">© 2025 - Toán học của tôi</div>
+    <footer>© 2025 • Math Hub</footer>
   </main>
+
+  <script src="app.js"></script>
+  <script>
+    MathHub.initParticles();
+  </script>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </body>
 </html>
