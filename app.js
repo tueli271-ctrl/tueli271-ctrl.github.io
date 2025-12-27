@@ -1,96 +1,79 @@
-// Math Hub background particles (Canvas)
-// Chạy tốt trên GitHub Pages (static)
+// app.js - particles background (canvas #bg)
+window.MathHub = window.MathHub || {};
 
-(function () {
-  function hexToRgb(hex){
-    const h = hex.replace('#','').trim();
-    if(h.length !== 6) return {r:255,g:255,b:255};
-    return {
-      r: parseInt(h.slice(0,2),16),
-      g: parseInt(h.slice(2,4),16),
-      b: parseInt(h.slice(4,6),16),
-    };
+MathHub.initParticles = function initParticles(){
+  const canvas = document.getElementById("bg");
+  if(!canvas) return;
+
+  const ctx = canvas.getContext("2d", { alpha: true });
+  const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let W=0, H=0, DPR=1;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth;
+    H = canvas.clientHeight;
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  if (reduced){
+    // nếu giảm chuyển động: vẽ nền nhẹ rồi thôi
+    ctx.clearRect(0,0,W,H);
+    return;
   }
 
-  function getAccentColor(){
-    const cs = getComputedStyle(document.body);
-    // ưu tiên accent1; nếu trang home có 4 màu thì lấy accent1 cũng ổn
-    const c = cs.getPropertyValue('--accent1').trim() || '#ffffff';
-    return c;
+  // particle settings
+  const N = Math.min(90, Math.floor((W*H)/14000));
+  const pts = [];
+  for(let i=0;i<N;i++){
+    pts.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      vx:(Math.random()-.5)*0.45,
+      vy:(Math.random()-.5)*0.45,
+      r: 1 + Math.random()*1.6
+    });
   }
 
-  function initParticles(){
-    const canvas = document.getElementById('bg');
-    if(!canvas) return;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
 
-    const ctx = canvas.getContext('2d', { alpha: true });
-    let w = canvas.width = window.innerWidth;
-    let h = canvas.height = window.innerHeight;
+    // dots
+    ctx.globalAlpha = 0.9;
+    for(const p of pts){
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
 
-    const accent = getAccentColor();
-    const rgb = hexToRgb(accent);
-
-    const N = Math.max(45, Math.floor((w*h) / 35000));
-    const pts = [];
-    const rand = (a,b)=> a + Math.random()*(b-a);
-
-    for(let i=0;i<N;i++){
-      pts.push({
-        x: rand(0,w),
-        y: rand(0,h),
-        vx: rand(-0.35,0.35),
-        vy: rand(-0.35,0.35),
-        r: rand(1.2, 2.8)
-      });
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = "rgba(255,255,255,0.35)";
+      ctx.fill();
     }
 
-    function resize(){
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-
-    function draw(){
-      ctx.clearRect(0,0,w,h);
-
-      // dots
-      for(const p of pts){
-        p.x += p.vx; p.y += p.vy;
-        if(p.x < -30) p.x = w+30;
-        if(p.x > w+30) p.x = -30;
-        if(p.y < -30) p.y = h+30;
-        if(p.y > h+30) p.y = -30;
-
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},0.20)`;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fill();
-      }
-
-      // lines
-      for(let i=0;i<pts.length;i++){
-        for(let j=i+1;j<pts.length;j++){
-          const a = pts[i], b = pts[j];
-          const dx = a.x-b.x, dy = a.y-b.y;
-          const d2 = dx*dx + dy*dy;
-          if(d2 < 160*160){
-            const alpha = (1 - Math.sqrt(d2)/160) * 0.12;
-            ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(a.x,a.y);
-            ctx.lineTo(b.x,b.y);
-            ctx.stroke();
-          }
+    // lines
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const a = pts[i], b = pts[j];
+        const dx=a.x-b.x, dy=a.y-b.y;
+        const d2 = dx*dx+dy*dy;
+        if(d2 < 140*140){
+          const t = 1 - Math.sqrt(d2)/140;
+          ctx.strokeStyle = `rgba(255,255,255,${0.12*t})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
         }
       }
-
-      requestAnimationFrame(draw);
     }
 
-    draw();
+    requestAnimationFrame(draw);
   }
-
-  // expose
-  window.MathHub = { initParticles };
-})();
+  requestAnimationFrame(draw);
+};
