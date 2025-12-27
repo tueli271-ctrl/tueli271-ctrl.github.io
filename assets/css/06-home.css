@@ -1,0 +1,55 @@
+/* Home cards (4 books) */
+.home-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+.book{
+  position:relative;
+  border-radius: 18px;
+  padding: 14px 14px 16px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  text-decoration:none;
+  color: inherit;
+  overflow:hidden;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+  min-height: 120px;
+}
+.book:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.18);
+  background: rgba(255,255,255,.07);
+}
+.book .t{
+  font-weight: 950;
+  font-size: 18px;
+  margin:0;
+}
+.book .d{
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 13.5px;
+}
+.book::before{
+  content:"";
+  position:absolute;
+  inset:-80px -80px auto auto;
+  width:240px; height:240px;
+  background: radial-gradient(circle, var(--bookAccent), transparent 62%);
+  opacity:.35;
+  filter: blur(2px);
+}
+.book .arrow{
+  margin-top: 12px;
+  font-weight:900;
+  opacity:.8;
+}
+
+/* assign per book */
+.book.algebra{ --bookAccent: var(--accent1); }
+.book.combi  { --bookAccent: var(--accent2); }
+.book.geo    { --bookAccent: var(--accent3); }
+.book.nt     { --bookAccent: var(--accent4); }
