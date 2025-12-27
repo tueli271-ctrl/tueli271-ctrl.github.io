@@ -7,11 +7,6 @@
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css" />
-
-  <script>
-    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] } };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 
 <body class="theme-geo">
@@ -45,32 +40,18 @@
 
     <section class="panel section">
       <h2>🧾 Danh sách bài</h2>
-      <div class="grid" id="list"></div>
+      <div class="postlist" id="list"></div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
   <script src="app.js"></script>
-  <script> if (window.MathHub?.initParticles) MathHub.initParticles(); </script>
+  <script> MathHub.initParticles(); </script>
 
-  <script src="posts-geo.js"></script>
+  <script src="site.js"></script>
   <script>
-    const list = document.getElementById("list");
-    const posts = (window.POSTS_GEO || []).slice();
-    posts.sort((a,b) => String(a.id).localeCompare(String(b.id), "vi"));
-
-    list.innerHTML = posts.map((p,i) => `
-      <div class="post">
-        <a href="view.html?cat=geo&id=${encodeURIComponent(p.id)}">
-          <b>#${i+1}</b> ${p.title}
-        </a>
-      </div>
-    `).join("");
-
-    window.addEventListener("load", () => {
-      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
-    });
+    Site.renderList("geo", "list");
   </script>
 </body>
 </html>
