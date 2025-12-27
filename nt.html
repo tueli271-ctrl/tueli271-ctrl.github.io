@@ -3,54 +3,86 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Số học</title>
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <style>
-    body{margin:0;font-family:Arial,sans-serif;background:#f6f7fb;color:#111}
-    .top{background:#0b0d12;color:#fff;padding:14px 0}
-    .container{max-width:1060px;margin:0 auto;padding:0 18px}
-    .nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-    .pill{color:#fff;text-decoration:none;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08)}
-    .pill:hover{background:rgba(255,255,255,.12)}
-    .card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:14px;box-shadow:0 14px 35px rgba(0,0,0,.10);margin:14px 0}
-    .muted{color:rgba(0,0,0,.65);line-height:1.6}
-    ul{line-height:1.9}
-  </style>
+  <title>Số học • Math Hub</title>
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="top">
-    <div class="container">
-      <div class="nav">
-        <b>Số học</b>
-        <div>
-          <a class="pill" href="/">Trang chủ</a>
-          <a class="pill" href="/algebra.html">Đại số</a>
-          <a class="pill" href="/combi.html">Tổ hợp</a>
-          <a class="pill" href="/geo.html">Hình học</a>
+
+<body class="theme-nt">
+  <div class="bg-aurora"></div>
+  <canvas id="bg"></canvas>
+
+  <header class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <div class="logo"><img src="favicon.png" alt="logo"></div>
+        <div>Math Hub</div>
+      </div>
+
+      <nav class="navlinks">
+        <a class="pill" href="index.html">Trang chủ</a>
+        <a class="pill" href="algebra.html">Đại số</a>
+        <a class="pill" href="combi.html">Tổ hợp</a>
+        <a class="pill" href="geo.html">Hình học</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel pagehead">
+      <div class="left">
+        <h1>Số học</h1>
+        <p>Đồng dư, nguyên tố, LTE, p-adic. (Có MathJax.)</p>
+      </div>
+      <div class="badge"><span class="dot"></span> Màu chủ đạo: Số học</div>
+    </section>
+
+    <section class="panel section">
+      <h2>🧾 Bài mẫu</h2>
+
+      <div class="grid">
+        <div class="post">
+          <a href="#">Đồng dư: \(a\equiv b \pmod n\)</a>
+          <div class="meta">
+            <span class="tag level">N1</span>
+            <span class="tag">Đồng dư</span>
+            <span class="tag">Cơ bản</span>
+          </div>
+        </div>
+
+        <div class="post">
+          <a href="#">LTE: \(v_p(a^n-b^n)\)</a>
+          <div class="meta">
+            <span class="tag level">N4</span>
+            <span class="tag">LTE</span>
+            <span class="tag">Valuation</span>
+          </div>
+        </div>
+
+        <div class="post">
+          <a href="#">Nguyên tố: Euclid và biến thể</a>
+          <div class="meta">
+            <span class="tag level">N2</span>
+            <span class="tag">Nguyên tố</span>
+            <span class="tag">Chứng minh</span>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="container">
-    <div class="card">
-      <h2>Bài viết / Tài liệu</h2>
-      <p class="muted">Bạn thay link thật của bạn vào đây.</p>
-      <ul>
-        <li><a href="#">Chia hết & đồng dư (điền link)</a></li>
-        <li><a href="#">Số nguyên tố (điền link)</a></li>
-        <li><a href="#">LTE / p-adic (điền link)</a></li>
-      </ul>
-    </div>
+    <footer>© 2025 • Math Hub</footer>
+  </main>
 
-    <div class="card">
-      <h2>Gợi ý nội dung</h2>
-      <ul>
-        <li>CRT, Fermat/Euler</li>
-        <li>Định lý lifting the exponent (LTE)</li>
-        <li>Đánh giá v_p, Legendre</li>
-      </ul>
-    </div>
-  </div>
+  <script src="app.js"></script>
+  <script> MathHub.initParticles(); </script>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </body>
 </html>
