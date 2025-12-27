@@ -3,45 +3,86 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tổ hợp</title>
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <style>
-    body{margin:0;font-family:Arial,sans-serif;background:#f6f7fb;color:#111}
-    .top{background:#0b0d12;color:#fff;padding:14px 0}
-    .container{max-width:1060px;margin:0 auto;padding:0 18px}
-    .nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-    .pill{color:#fff;text-decoration:none;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08)}
-    .pill:hover{background:rgba(255,255,255,.12)}
-    .card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:14px;box-shadow:0 14px 35px rgba(0,0,0,.10);margin:14px 0}
-    .muted{color:rgba(0,0,0,.65);line-height:1.6}
-    ul{line-height:1.9}
-  </style>
+  <title>Hình học • Math Hub</title>
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="top">
-    <div class="container">
-      <div class="nav">
-        <b>Tổ hợp</b>
-        <div>
-          <a class="pill" href="/">Trang chủ</a>
-          <a class="pill" href="/algebra.html">Đại số</a>
-          <a class="pill" href="/geo.html">Hình học</a>
-          <a class="pill" href="/nt.html">Số học</a>
+
+<body class="theme-geo">
+  <div class="bg-aurora"></div>
+  <canvas id="bg"></canvas>
+
+  <header class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <div class="logo"><img src="favicon.png" alt="logo"></div>
+        <div>Math Hub</div>
+      </div>
+
+      <nav class="navlinks">
+        <a class="pill" href="index.html">Trang chủ</a>
+        <a class="pill" href="algebra.html">Đại số</a>
+        <a class="pill" href="combi.html">Tổ hợp</a>
+        <a class="pill" href="nt.html">Số học</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel pagehead">
+      <div class="left">
+        <h1>Hình học</h1>
+        <p>Đường tròn, cực–đối cực, đẳng giác. (Có MathJax.)</p>
+      </div>
+      <div class="badge"><span class="dot"></span> Màu chủ đạo: Hình học</div>
+    </section>
+
+    <section class="panel section">
+      <h2>🧾 Bài mẫu</h2>
+
+      <div class="grid">
+        <div class="post">
+          <a href="#">Góc nội tiếp: \(\angle ACB = \angle ADB\)</a>
+          <div class="meta">
+            <span class="tag level">N2</span>
+            <span class="tag">Đường tròn</span>
+            <span class="tag">Góc</span>
+          </div>
+        </div>
+
+        <div class="post">
+          <a href="#">Miquel: điểm đồng quy</a>
+          <div class="meta">
+            <span class="tag level">N4</span>
+            <span class="tag">Cấu hình</span>
+            <span class="tag">Miquel</span>
+          </div>
+        </div>
+
+        <div class="post">
+          <a href="#">Đẳng giác: \(P,Q\) liên hợp đẳng giác</a>
+          <div class="meta">
+            <span class="tag level">N4</span>
+            <span class="tag">Đẳng giác</span>
+            <span class="tag">Nâng cao</span>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="container">
-    <div class="card">
-      <h2>Bài viết / Tài liệu</h2>
-      <p class="muted">Bạn thay link thật của bạn vào đây.</p>
-      <ul>
-        <li><a href="#">Dirichlet (điền link)</a></li>
-        <li><a href="#">Đếm (điền link)</a></li>
-        <li><a href="#">Đồ thị (điền link)</a></li>
-      </ul>
-    </div>
-  </div>
+    <footer>© 2025 • Math Hub</footer>
+  </main>
+
+  <script src="app.js"></script>
+  <script> MathHub.initParticles(); </script>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </body>
 </html>
