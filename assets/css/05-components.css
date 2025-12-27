@@ -37,3 +37,17 @@
   background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
   border-color: rgba(255,255,255,.16);
 }
+/* Interaction micro-animations */
+.btn, .pill, .postrow, .tax-chip span{
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.btn:active, .pill:active, .postrow:active, .tax-chip span:active{
+  transform: translateY(0) scale(0.98);
+}
+
+.btn:focus-visible, .pill:focus-visible, .postrow:focus-visible{
+  outline: 2px solid rgba(255,255,255,.22);
+  outline-offset: 2px;
+}
