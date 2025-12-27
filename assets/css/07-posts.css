@@ -1,0 +1,67 @@
+/* Post list (gọn + đánh số, không hiện title) */
+.postlist{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.postrow{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  text-decoration:none;
+  color: inherit;
+  background: rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.10);
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+.postrow:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.16);
+}
+.num{
+  min-width:56px;
+  height:34px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  letter-spacing:.6px;
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.10);
+}
+.label{
+  font-weight:850;
+  color: rgba(255,255,255,.90);
+}
+.go{
+  margin-left:auto;
+  font-weight:900;
+  opacity:.75;
+}
+
+/* Post content card */
+.post{
+  line-height: 1.7;
+  color: rgba(255,255,255,.88);
+}
+.post code{
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.10);
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+hr{
+  border:0;
+  height:1px;
+  background: rgba(255,255,255,.10);
+  margin: 14px 0;
+}
+footer{
+  text-align:center;
+  margin-top: 16px;
+  color: rgba(255,255,255,.55);
+}
