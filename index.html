@@ -4,565 +4,146 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Math Hub</title>
-  <link rel="icon" type="image/png" href="/favicon.png">
 
-  <style>
-    :root{
-      --bg0:#070A12;
-      --bg1:#0B1020;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.085);
-      --line: rgba(255,255,255,.12);
-      --text:#EAF0FF;
-      --muted: rgba(234,240,255,.72);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 18px;
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="theme-color" content="#0b0f19">
 
-      --a:#7C3AED;   /* tím */
-      --b:#06B6D4;   /* cyan */
-      --c:#22C55E;   /* green */
-      --d:#F59E0B;   /* amber */
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ margin:0; padding:0; }
-    body{
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: radial-gradient(1200px 700px at 20% -10%, rgba(124,58,237,.35), transparent 60%),
-                  radial-gradient(900px 600px at 110% 10%, rgba(6,182,212,.28), transparent 55%),
-                  radial-gradient(900px 600px at 70% 110%, rgba(34,197,94,.20), transparent 55%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1));
-      min-height:100vh;
-      overflow-x:hidden;
-    }
-
-    /* animated aura */
-    .aura{
-      position:fixed; inset:-20%;
-      background:
-        radial-gradient(closest-side at 30% 30%, rgba(124,58,237,.26), transparent 55%),
-        radial-gradient(closest-side at 70% 30%, rgba(6,182,212,.22), transparent 55%),
-        radial-gradient(closest-side at 60% 70%, rgba(245,158,11,.14), transparent 60%),
-        radial-gradient(closest-side at 25% 80%, rgba(34,197,94,.18), transparent 60%);
-      filter: blur(30px);
-      opacity:.95;
-      animation: drift 12s ease-in-out infinite alternate;
-      pointer-events:none;
-      z-index:-2;
-    }
-    @keyframes drift{
-      0%{ transform: translate3d(-2%, -1%, 0) scale(1.02); }
-      100%{ transform: translate3d(2%, 1.5%, 0) scale(1.06); }
-    }
-
-    /* star-ish noise */
-    .dust{
-      position:fixed; inset:0;
-      background-image:
-        radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,.32) 50%, transparent 51%),
-        radial-gradient(1px 1px at 65% 45%, rgba(255,255,255,.24) 50%, transparent 51%),
-        radial-gradient(1px 1px at 35% 70%, rgba(255,255,255,.18) 50%, transparent 51%),
-        radial-gradient(1px 1px at 85% 78%, rgba(255,255,255,.22) 50%, transparent 51%),
-        radial-gradient(1px 1px at 55% 12%, rgba(255,255,255,.16) 50%, transparent 51%);
-      opacity:.55;
-      pointer-events:none;
-      z-index:-1;
-    }
-
-    /* layout */
-    .wrap{ max-width: 1120px; margin:0 auto; padding: 18px 16px 48px; }
-
-    /* topbar */
-    .topbar{
-      position: sticky; top:0; z-index:50;
-      backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(7,10,18,.72), rgba(7,10,18,.35));
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .topbar-inner{
-      max-width:1120px; margin:0 auto; padding: 12px 16px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-    }
-
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      color: var(--text); text-decoration:none; font-weight:800; letter-spacing:.2px;
-    }
-    .brand img{
-      width:32px;height:32px;border-radius:11px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 10px 22px rgba(0,0,0,.45);
-    }
-    .nav{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-    }
-    .pill{
-      color: var(--text); text-decoration:none;
-      padding:8px 12px; border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.03);
-      transition: .15s;
-      opacity:.92;
-    }
-    .pill:hover{ transform: translateY(-1px); opacity:1; border-color: rgba(255,255,255,.22); }
-    .pill.primary{
-      background: linear-gradient(90deg, rgba(124,58,237,.85), rgba(6,182,212,.65));
-      border-color: transparent;
-      font-weight:700;
-    }
-
-    /* hero */
-    .hero{
-      margin-top: 18px;
-      border-radius: 28px;
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(650px 260px at 10% 0%, rgba(124,58,237,.35), transparent 60%),
-                  radial-gradient(650px 260px at 90% 10%, rgba(6,182,212,.22), transparent 55%);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .hero-inner{
-      position:relative;
-      padding: 26px 22px;
-      display:grid;
-      grid-template-columns: 1.4fr .9fr;
-      gap: 14px;
-    }
-    @media (max-width: 980px){
-      .hero-inner{ grid-template-columns:1fr; }
-    }
-
-    .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px; border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: var(--muted);
-      width: fit-content;
-      margin-bottom: 12px;
-    }
-
-    .h1{
-      margin:0;
-      font-size: 44px;
-      line-height:1.06;
-      letter-spacing: -.6px;
-    }
-    @media (max-width: 520px){
-      .h1{ font-size: 36px; }
-    }
-    .grad{
-      background: linear-gradient(90deg, #fff, rgba(255,255,255,.72), rgba(6,182,212,.9));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-    .lead{
-      margin: 12px 0 16px;
-      color: var(--muted);
-      font-size: 16px;
-      line-height:1.55;
-      max-width: 62ch;
-    }
-
-    .actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .btn{
-      border-radius: 14px;
-      padding: 11px 14px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      text-decoration:none;
-      cursor:pointer;
-      font-weight:650;
-      transition: .16s;
-    }
-    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.28); }
-    .btn.solid{
-      background: #fff; color:#070A12; border-color:#fff;
-    }
-
-    /* search */
-    .searchbar{
-      margin-top: 14px;
-      display:flex; gap:10px; flex-wrap:wrap;
-      align-items:center;
-    }
-    .input{
-      flex: 1;
-      min-width: 240px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      color: var(--text);
-      outline:none;
-    }
-    .input::placeholder{ color: rgba(234,240,255,.45); }
-
-    /* right panel cards */
-    .side{
-      display:grid; gap:10px;
-    }
-    .mini{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      padding: 14px;
-    }
-    .mini h3{ margin:0 0 6px; font-size:16px; }
-    .mini p{ margin:0; color: var(--muted); line-height:1.5; }
-
-    /* section */
-    .section{
-      margin-top: 18px;
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-    @media (max-width: 980px){ .section{ grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 520px){ .section{ grid-template-columns: 1fr; } }
-
-    .topic{
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      padding: 16px;
-      position:relative;
-      overflow:hidden;
-      cursor:pointer;
-      text-decoration:none;
-      color: var(--text);
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      transition: .18s;
-    }
-    .topic:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.22); }
-    .topic .icon{
-      width:44px; height:44px; border-radius: 16px;
-      display:grid; place-items:center;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      margin-bottom: 10px;
-      font-size:20px;
-    }
-    .topic h2{ margin:0 0 6px; font-size:18px; }
-    .topic p{ margin:0; color: var(--muted); line-height:1.5; }
-    .topic .meta{
-      margin-top: 12px;
-      display:flex; gap:8px; flex-wrap:wrap;
-    }
-    .badge{
-      font-size:12px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.03);
-      color: rgba(255,255,255,.86);
-    }
-
-    /* color accents */
-    .tA::before,.tB::before,.tC::before,.tD::before{
-      content:""; position:absolute; inset:-40%;
-      filter: blur(26px); opacity:.35; pointer-events:none;
-      transform: rotate(10deg);
-    }
-    .tA::before{ background: radial-gradient(circle, rgba(124,58,237,.9), transparent 55%); }
-    .tB::before{ background: radial-gradient(circle, rgba(6,182,212,.9), transparent 55%); }
-    .tC::before{ background: radial-gradient(circle, rgba(34,197,94,.9), transparent 55%); }
-    .tD::before{ background: radial-gradient(circle, rgba(245,158,11,.9), transparent 55%); }
-
-    /* palette */
-    .overlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      align-items:flex-start;
-      justify-content:center;
-      padding: 70px 16px 16px;
-      z-index:999;
-    }
-    .palette{
-      width:min(720px, 100%);
-      border-radius: 20px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(10,14,25,.92);
-      box-shadow: 0 30px 90px rgba(0,0,0,.65);
-      overflow:hidden;
-    }
-    .pal-head{
-      padding: 12px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      display:flex; gap:10px; align-items:center;
-    }
-    .pal-input{
-      width:100%;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.25);
-      color: var(--text);
-      outline:none;
-    }
-    .pal-list{ max-height: 320px; overflow:auto; }
-    .pal-item{
-      padding: 12px 14px;
-      border-top:1px solid rgba(255,255,255,.08);
-      display:flex; justify-content:space-between; gap:10px;
-      cursor:pointer;
-    }
-    .pal-item:hover{ background: rgba(255,255,255,.05); }
-    .k{
-      font-size:12px; color: rgba(255,255,255,.6);
-      border:1px solid rgba(255,255,255,.14);
-      padding: 3px 8px; border-radius: 999px;
-    }
-
-    .foot{
-      margin-top: 22px;
-      color: rgba(234,240,255,.55);
-      text-align:center;
-      font-size: 13px;
-    }
-    .link{ color: rgba(255,255,255,.85); }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
-  <div class="aura"></div>
-  <div class="dust"></div>
+<body class="theme-home">
+  <div class="bg-aurora"></div>
+  <canvas id="bg"></canvas>
 
   <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="/">
-        <img src="/favicon.png" alt="logo">
-        <span>Toán học</span>
-      </a>
+    <div class="inner">
+      <div class="brand">
+        <div class="logo"><img src="favicon.png" alt="logo"></div>
+        <div>Math Hub</div>
+      </div>
 
-      <nav class="nav">
-        <a class="pill" href="/algebra.html">Đại số</a>
-        <a class="pill" href="/combi.html">Tổ hợp</a>
-        <a class="pill" href="/geo.html">Hình học</a>
-        <a class="pill" href="/nt.html">Số học</a>
-        <a class="pill" href="#contact">Liên hệ</a>
-        <a class="pill primary" href="#" id="openPalette">Ctrl+K</a>
+      <nav class="navlinks">
+        <a class="pill" href="algebra.html">Đại số</a>
+        <a class="pill" href="combi.html">Tổ hợp</a>
+        <a class="pill" href="geo.html">Hình học</a>
+        <a class="pill" href="nt.html">Số học</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="hero">
-      <div class="hero-inner">
-        <div>
-          <div class="tag">📌 Trang chủ • ghi chú & tài liệu</div>
+    <section class="panel hero">
+      <div>
+        <div class="kicker">📚 Bộ 4 mảng • ghi chú • bài toán • lời giải</div>
 
-          <h1 class="h1">
-            Chào mừng đến với <span class="grad">Math Hub</span>
-          </h1>
-          <p class="lead">
-            Nơi mình tổng hợp bài toán, lời giải và tài liệu theo 4 mảng:
-            <b>Đại số</b>, <b>Tổ hợp</b>, <b>Hình học</b>, <b>Số học</b>.
-            <br>
-            Bonus: có <b>Command Palette</b> (Ctrl+K) như ứng dụng thật.
-          </p>
-
-          <div class="actions">
-            <a class="btn solid" href="#topics">Vào chuyên đề</a>
-            <button class="btn" id="randomBtn">🎲 Bốc ngẫu nhiên</button>
-            <a class="btn" href="#latest">✨ Xem bài mới</a>
-          </div>
-
-          <div class="searchbar">
-            <input class="input" id="q" placeholder="Tìm nhanh (vd: 'bất đẳng thức', 'đồng dư', 'C_n^k'...)">
-            <button class="btn" id="findBtn">Tìm</button>
-          </div>
-          <p style="margin:10px 0 0; color:rgba(234,240,255,.55); font-size:13px;">
-            Gợi ý: bấm <b>Ctrl+K</b> để mở menu điều hướng nhanh.
-          </p>
-        </div>
-
-        <div class="side">
-          <div class="mini">
-            <h3>🎯 Mục tiêu</h3>
-            <p>Lưu trữ gọn, đẹp, dễ đọc, share link cho bạn bè.</p>
-          </div>
-          <div class="mini">
-            <h3>🧭 Cách dùng</h3>
-            <p>Chọn chuyên đề bên dưới → mở trang con → đăng bài / gắn link tài liệu.</p>
-          </div>
-          <div class="mini">
-            <h3>⚡ Tip</h3>
-            <p>Sau khi sửa trên GitHub, đôi khi cần <b>Ctrl+F5</b> để cập nhật cache.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="topics" class="section">
-      <a class="topic tA" href="/algebra.html">
-        <div class="icon">🧩</div>
-        <h2>Đại số</h2>
-        <p>PT, đa thức, dãy số, BĐT…</p>
-        <div class="meta">
-          <span class="badge">Giải tích cơ bản</span>
-          <span class="badge">BĐT</span>
-        </div>
-      </a>
-
-      <a class="topic tB" href="/combi.html">
-        <div class="icon">🧠</div>
-        <h2>Tổ hợp</h2>
-        <p>Đếm, đồ thị, nguyên lý Dirichlet…</p>
-        <div class="meta">
-          <span class="badge">Đếm</span>
-          <span class="badge">Graph</span>
-        </div>
-      </a>
-
-      <a class="topic tC" href="/geo.html">
-        <div class="icon">📐</div>
-        <h2>Hình học</h2>
-        <p>Góc, đường tròn, điểm đặc biệt…</p>
-        <div class="meta">
-          <span class="badge">Euclid</span>
-          <span class="badge">Circle</span>
-        </div>
-      </a>
-
-      <a class="topic tD" href="/nt.html">
-        <div class="icon">🔢</div>
-        <h2>Số học</h2>
-        <p>Đồng dư, p-adic, ước số…</p>
-        <div class="meta">
-          <span class="badge">Modulo</span>
-          <span class="badge">LTE</span>
-        </div>
-      </a>
-    </section>
-
-    <section id="latest" style="margin-top:16px;">
-      <div class="mini" style="border-radius:22px;">
-        <h3 style="margin:0 0 8px;">✨ Bài mới (demo)</h3>
-        <p class="muted" style="margin:0;">
-          Chỗ này bạn có thể tự thay bằng “bài mới”/link PDF/drive/issue…
-          (Mình có thể giúp bạn làm danh sách bài theo tag sau.)
+        <h1>Chào mừng bạn đến với “Math Hub”</h1>
+        <p class="lead">
+          Đây là “trang chủ” của bạn: gom bài theo <b>Đại số – Tổ hợp – Hình học – Số học</b>,
+          mỗi mảng một màu (như 4 “cuốn sách”).
         </p>
+
+        <div class="cta">
+          <a class="btn primary" href="#latest">Xem bài mới</a>
+          <a class="btn ghost" href="#how">Cách dùng</a>
+        </div>
+
+        <div class="books">
+          <a class="book algebra" href="algebra.html">
+            <p class="title">Đại số</p>
+            <p class="desc">PT, BĐT, đa thức, giải tích tổ hợp…</p>
+          </a>
+          <a class="book combi" href="combi.html">
+            <p class="title">Tổ hợp</p>
+            <p class="desc">Đếm, nguyên lý, đồ thị, bất biến…</p>
+          </a>
+          <a class="book geo" href="geo.html">
+            <p class="title">Hình học</p>
+            <p class="desc">Tam giác, đường tròn, cực–đối cực…</p>
+          </a>
+          <a class="book nt" href="nt.html">
+            <p class="title">Số học</p>
+            <p class="desc">Đồng dư, LTE, nguyên tố, p-adic…</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="item">
+          <h3>🎯 Mục tiêu</h3>
+          <p>Lưu trữ gọn gàng, đẹp, có link chia sẻ nhanh cho bạn bè.</p>
+        </div>
+        <div class="item">
+          <h3>🧠 Mẹo Toán</h3>
+          <p>Muốn gõ công thức đẹp: dùng <b>MathJax</b> (mình sẽ gắn sẵn trong các trang con).</p>
+        </div>
+        <div class="item">
+          <h3>⚡ Tip kỹ thuật</h3>
+          <p>Sau khi sửa code trên GitHub Pages, đôi khi cần <b>Ctrl + F5</b> để bỏ cache.</p>
+        </div>
       </div>
     </section>
 
-    <section id="contact" style="margin-top:16px;">
-      <div class="mini" style="border-radius:22px;">
-        <h3 style="margin:0 0 8px;">📮 Liên hệ</h3>
-        <p style="margin:0; color:rgba(234,240,255,.72); line-height:1.7;">
-          Email: <a class="link" href="mailto:youremail@gmail.com">youremail@gmail.com</a><br>
-          Facebook: <a class="link" href="https://facebook.com/" target="_blank" rel="noreferrer">link của bạn</a>
-        </p>
+    <section id="latest" class="panel section">
+      <h2>✨ Bài mới (mẫu)</h2>
+      <div class="grid">
+        <div class="post">
+          <a href="algebra.html">BĐT mẫu • Cauchy – Jensen</a>
+          <div class="meta">
+            <span class="tag level">N3</span>
+            <span class="tag">Đại số</span>
+            <span class="tag">Bất đẳng thức</span>
+          </div>
+        </div>
+        <div class="post">
+          <a href="combi.html">Đếm đường đi • DP / nguyên lý Dirichlet</a>
+          <div class="meta">
+            <span class="tag level">N2</span>
+            <span class="tag">Tổ hợp</span>
+            <span class="tag">Đếm</span>
+          </div>
+        </div>
+        <div class="post">
+          <a href="geo.html">Điểm Miquel • cấu hình đường tròn</a>
+          <div class="meta">
+            <span class="tag level">N4</span>
+            <span class="tag">Hình học</span>
+            <span class="tag">Đường tròn</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div class="foot">© 2025 — Math Hub • Made on GitHub Pages</div>
+    <section id="how" class="panel section">
+      <h2>🧩 Cách dùng nhanh</h2>
+      <div class="grid">
+        <div class="post">
+          <a href="#">1) Thêm bài</a>
+          <p style="margin:10px 0 0; color:rgba(255,255,255,.68); line-height:1.5">
+            Vào trang con (Đại/Tổ/Hình/Số) → sửa danh sách “Bài” trong HTML → commit.
+          </p>
+        </div>
+        <div class="post">
+          <a href="#">2) Gõ công thức</a>
+          <p style="margin:10px 0 0; color:rgba(255,255,255,.68); line-height:1.5">
+            Viết LaTeX như <code>\(a^2+b^2\)</code> hoặc <code>\[...\]</code> (MathJax sẽ render).
+          </p>
+        </div>
+        <div class="post">
+          <a href="#">3) Đổi màu giống bìa sách</a>
+          <p style="margin:10px 0 0; color:rgba(255,255,255,.68); line-height:1.5">
+            Mở <b>style.css</b> → phần “THEME COLORS” → thay hex màu.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2025 • Math Hub (GitHub Pages)</footer>
   </main>
 
-  <!-- Command Palette -->
-  <div class="overlay" id="overlay">
-    <div class="palette" role="dialog" aria-modal="true" aria-label="Command palette">
-      <div class="pal-head">
-        <input class="pal-input" id="palQ" placeholder="Gõ để tìm: đại số / tổ hợp / hình / số / liên hệ…">
-      </div>
-      <div class="pal-list" id="palList"></div>
-    </div>
-  </div>
-
+  <script src="app.js"></script>
   <script>
-    const actions = [
-      {label:"Đại số", hint:"/algebra.html", go:"/algebra.html", key:"A"},
-      {label:"Tổ hợp", hint:"/combi.html", go:"/combi.html", key:"C"},
-      {label:"Hình học", hint:"/geo.html", go:"/geo.html", key:"G"},
-      {label:"Số học", hint:"/nt.html", go:"/nt.html", key:"N"},
-      {label:"Liên hệ", hint:"#contact", go:"#contact", key:"L"},
-      {label:"Vào chuyên đề", hint:"#topics", go:"#topics", key:"T"},
-      {label:"Bài mới", hint:"#latest", go:"#latest", key:"B"},
-    ];
-
-    const overlay = document.getElementById("overlay");
-    const palQ = document.getElementById("palQ");
-    const palList = document.getElementById("palList");
-
-    function openPalette(){
-      overlay.style.display = "flex";
-      palQ.value = "";
-      renderList(actions);
-      setTimeout(()=>palQ.focus(), 0);
-    }
-    function closePalette(){
-      overlay.style.display = "none";
-    }
-
-    function renderList(list){
-      palList.innerHTML = list.map(a => `
-        <div class="pal-item" data-go="${a.go}">
-          <div>${a.label}<div style="color:rgba(234,240,255,.55); font-size:12px; margin-top:2px;">${a.hint}</div></div>
-          <div class="k">${a.key}</div>
-        </div>
-      `).join("");
-      [...palList.querySelectorAll(".pal-item")].forEach(el=>{
-        el.addEventListener("click", ()=>{
-          const go = el.getAttribute("data-go");
-          closePalette();
-          if(go.startsWith("#")) location.hash = go;
-          else location.href = go;
-        });
-      });
-    }
-
-    document.getElementById("openPalette").addEventListener("click", (e)=>{
-      e.preventDefault(); openPalette();
-    });
-
-    // Ctrl+K
-    window.addEventListener("keydown", (e)=>{
-      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==="k"){
-        e.preventDefault(); openPalette();
-      }
-      if(e.key==="Escape") closePalette();
-    });
-
-    overlay.addEventListener("click", (e)=>{
-      if(e.target === overlay) closePalette();
-    });
-
-    palQ.addEventListener("input", ()=>{
-      const q = palQ.value.trim().toLowerCase();
-      const filtered = actions.filter(a => (a.label + " " + a.hint).toLowerCase().includes(q));
-      renderList(filtered.length ? filtered : [{label:"Không thấy kết quả", hint:"", go:"#", key:""}]);
-    });
-
-    // Search scroll
-    const q = document.getElementById("q");
-    document.getElementById("findBtn").addEventListener("click", ()=>{
-      const text = q.value.trim().toLowerCase();
-      if(!text){ location.hash = "#topics"; return; }
-      // đơn giản: nếu gõ từ khóa gần tên chuyên đề thì cuộn/đi trang
-      if(text.includes("đại") || text.includes("algebra")) location.href="/algebra.html";
-      else if(text.includes("tổ") || text.includes("combi")) location.href="/combi.html";
-      else if(text.includes("hình") || text.includes("geo")) location.href="/geo.html";
-      else if(text.includes("số") || text.includes("nt")) location.href="/nt.html";
-      else location.hash = "#latest";
-    });
-
-    // Random topic
-    document.getElementById("randomBtn").addEventListener("click", ()=>{
-      const pages = ["/algebra.html","/combi.html","/geo.html","/nt.html"];
-      const pick = pages[Math.floor(Math.random()*pages.length)];
-      location.href = pick;
-    });
+    MathHub.initParticles();
   </script>
 </body>
 </html>
+
