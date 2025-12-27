@@ -1,0 +1,126 @@
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --line:#e5e7eb;
+  --shadow: 0 10px 25px rgba(0,0,0,.06);
+  --radius:16px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* Top bar */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background:#0b0f19;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.topbar-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:700;
+  letter-spacing:.2px;
+}
+.brand img{
+  width:28px;height:28px;
+  border-radius:8px;
+  background:#111;
+}
+
+.navlinks{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.pill{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  opacity:.9;
+  transition:.15s;
+}
+.pill:hover{opacity:1; transform: translateY(-1px);}
+.pill.active{
+  background:#fff;
+  color:#0b0f19;
+  border-color:#fff;
+  opacity:1;
+}
+
+/* Layout */
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px 18px 34px;
+}
+
+.pagehead{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px 18px;
+  margin-top:14px;
+}
+.pagehead h1{margin:0 0 6px; font-size:30px;}
+.muted{color:var(--muted); margin:0;}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:12px;
+  margin-top:14px;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:14px;
+  box-shadow:0 6px 16px rgba(0,0,0,.04);
+}
+.card h3{margin:0 0 8px;}
+.badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.badge{
+  font-size:12px;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#111;
+}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:18px 0 26px;
+}
+
+@media (max-width: 900px){
+  .grid{grid-template-columns: 1fr;}
+  .pagehead h1{font-size:26px;}
+}
