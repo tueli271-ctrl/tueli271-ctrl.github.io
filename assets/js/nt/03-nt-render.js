@@ -1,101 +1,118 @@
 // assets/js/nt/03-nt-render.js
-MathHub.NT.renderTaxPanel = function renderTaxPanel() {
-  const { qs, util } = MathHub.NT;
-  const panel = qs("#ntTaxPanel");
-  if (!panel) return;
+window.MathHub = window.MathHub || {};
+MathHub.NT = MathHub.NT || {};
 
-  const T = MathHub.NT.taxonomy || { difficulties: [], topics: [], methods: [] };
+(function () {
+  const U = MathHub.NT.util;
 
   function chip(group, value) {
-    const id = `nt-${group}-${util.slug(value)}`;
+    const id = `nt-${group}-${U.slug(value)}`;
     return `
-      <label class="tax-chip" for="${id}">
-        <input type="checkbox" data-group="${group}" value="${value}" id="${id}">
-        <span>${value}</span>
-      </label>
+      <label class="tax-chip">
+        <input type="checkbox" id="${id}" data-group="${group}" value="${value}">
+        <span><span class="dot"></span>${value}</span>
+      </label>`;
+  }
+
+  MathHub.NT.renderTaxonomy = function renderTaxonomy() {
+    const panel = U.qs("#ntTaxPanel");
+    if (!panel) return;
+
+    const t = MathHub.NT.taxonomy;
+    if (!t) {
+      panel.innerHTML = `<div style="opacity:.8">Chưa có taxonomy.</div>`;
+      return;
+    }
+
+    panel.innerHTML = `
+      <div class="taxgrid" id="ntTaxGrid">
+        <div class="taxcol">
+          <h3>Độ khó</h3>
+          <div class="taxchips">
+            ${t.difficulties.map(v => chip("difficulty", v)).join("")}
+          </div>
+        </div>
+
+        <div class="taxcol">
+          <h3>Thể loại bài</h3>
+          <div class="taxchips">
+            ${t.topics.map(v => chip("topic", v)).join("")}
+          </div>
+        </div>
+
+        <div class="taxcol">
+          <h3>Cách làm / kiến thức</h3>
+          <div class="taxchips">
+            ${t.methods.map(v => chip("method", v)).join("")}
+          </div>
+        </div>
+      </div>
     `;
+  };
+
+  function matches(post, state) {
+    // difficulty
+    if (state.filters.difficulty.size) {
+      if (!state.filters.difficulty.has(post.difficulty)) return false;
+    }
+
+    // topics
+    if (state.filters.topic.size) {
+      const ok = (post.topics || []).some(x => state.filters.topic.has(x));
+      if (!ok) return false;
+    }
+
+    // methods
+    if (state.filters.method.size) {
+      const ok = (post.methods || []).some(x => state.filters.method.has(x));
+      if (!ok) return false;
+    }
+
+    return true;
   }
 
-  panel.innerHTML = `
-    <div class="taxgrid">
-      <div class="taxcol">
-        <h3>Độ khó</h3>
-        <div class="taxchips">
-          ${T.difficulties.map(v => chip("diff", v)).join("")}
-        </div>
-      </div>
+  function miniTags(post) {
+    const tags = [
+      ...(post.topics || []).slice(0, 2),
+      ...(post.methods || []).slice(0, 1),
+    ].slice(0, 3);
 
-      <div class="taxcol">
-        <h3>Thể loại</h3>
-        <div class="taxchips">
-          ${T.topics.map(v => chip("topic", v)).join("")}
-        </div>
-      </div>
-
-      <div class="taxcol">
-        <h3>Cách làm</h3>
-        <div class="taxchips">
-          ${T.methods.map(v => chip("method", v)).join("")}
-        </div>
-      </div>
-    </div>
-  `;
-};
-
-MathHub.NT.readFilterState = function readFilterState() {
-  const { qsa, state } = MathHub.NT;
-
-  state.diff.clear();
-  state.topic.clear();
-  state.method.clear();
-
-  qsa('#ntTaxPanel input[type="checkbox"]:checked').forEach(inp => {
-    const g = inp.dataset.group;
-    const v = inp.value;
-    if (g === "diff") state.diff.add(v);
-    if (g === "topic") state.topic.add(v);
-    if (g === "method") state.method.add(v);
-  });
-};
-
-MathHub.NT.matchPost = function matchPost(p) {
-  const st = MathHub.NT.state;
-
-  const okDiff  = st.diff.size  ? st.diff.has(p.difficulty) : true;
-  const okTopic = st.topic.size ? st.topic.has(p.topic) : true;
-
-  let okMethod = true;
-  if (st.method.size) {
-    const arr = Array.isArray(p.method) ? p.method : [];
-    okMethod = arr.some(m => st.method.has(m));
+    if (!tags.length) return "";
+    return `
+      <div class="tax-mini">
+        ${tags.map(t => `<span class="tax-pill"><span class="dot"></span>${t}</span>`).join("")}
+      </div>`;
   }
 
-  return okDiff && okTopic && okMethod;
-};
+  MathHub.NT.renderList = function renderList() {
+    const list = U.qs("#ntList");
+    if (!list) return;
 
-MathHub.NT.renderList = function renderList() {
-  const { qs } = MathHub.NT;
-  const list = qs("#ntList");
-  if (!list) return;
+    const posts = MathHub.NT.posts || [];
+    const st = MathHub.NT.state;
 
-  const items = (MathHub.NT.posts || []).filter(MathHub.NT.matchPost);
+    const filtered = posts.filter(p => matches(p, st));
 
-  if (!items.length) {
-    list.innerHTML = `<div style="color:rgba(255,255,255,.75)">Không có bài nào khớp bộ lọc.</div>`;
-    return;
-  }
+    const countBadge = U.qs("#ntFilterCount");
+    if (countBadge) {
+      const c = st.filters.difficulty.size + st.filters.topic.size + st.filters.method.size;
+      countBadge.innerHTML = `<span class="dot"></span> ${c} lọc`;
+    }
 
-  list.innerHTML = items.map(p => `
-    <a class="postrow" href="${p.href || "view.html"}">
-      <div class="num">${p.num || ""}</div>
-      <div class="label">
-        ${p.title || "Bài"}
-        <div class="tax-mini">
-          ${p.difficulty ? `<span class="tax-pill"><span class="dot"></span>${p.difficulty}</span>` : ""}
-          ${p.topic ? `<span class="tax-pill"><span class="dot"></span>${p.topic}</span>` : ""}
+    if (!filtered.length) {
+      list.innerHTML = `<div style="opacity:.75;padding:10px 2px">Không có bài phù hợp bộ lọc.</div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(p => `
+      <a class="postrow" href="${p.href || "#"}">
+        <div class="num">${p.difficulty || "NT"}</div>
+        <div>
+          <div class="label">${p.title || ("Bài " + p.id)}</div>
+          ${miniTags(p)}
         </div>
-      </div>
-      <div class="go">→</div>
-    </a>
-  `).join("");
-};
+        <div class="go">→</div>
+      </a>
+    `).join("");
+  };
+})();
