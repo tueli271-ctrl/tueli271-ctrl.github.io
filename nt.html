@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Math Hub • Số học</title>
 
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
@@ -16,7 +16,7 @@
   <header class="topbar">
     <div class="inner">
       <div class="brand">
-        <div class="logo"><img src="assets/img/favicon.png" alt="logo"></div>
+        <div class="logo"><img src="favicon.png" alt="logo"></div>
         <div>Math Hub</div>
       </div>
 
@@ -43,19 +43,18 @@
       <h2>🧩 Thể loại</h2>
 
       <div class="taxbar">
-        <a class="btn primary" id="ntTaxToggle" href="javascript:void(0)">Mở / đóng bộ lọc</a>
-        <a class="btn" id="ntClearFilters" href="javascript:void(0)">Xoá lọc</a>
+        <button class="btn" id="ntToggleTax" type="button">Mở / đóng bộ lọc</button>
+        <button class="btn" id="ntClearFilters" type="button">Xoá lọc</button>
+        <div class="badge" id="ntFilterCount" style="margin-left:auto"><span class="dot"></span> 0 lọc</div>
       </div>
 
-      <!-- JS sẽ đổ 3 cột vào đây -->
-      <div id="ntTaxPanel" class="taxpanel tax-hidden"></div>
+      <!-- taxonomy sẽ được JS render vào đây -->
+      <div class="taxpanel" id="ntTaxPanel"></div>
     </section>
 
     <section class="panel section">
       <h2>📌 Danh sách bài</h2>
-
-      <!-- JS sẽ đổ danh sách bài vào đây -->
-      <div id="ntList" class="postlist"></div>
+      <div class="postlist" id="ntList"></div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
@@ -63,13 +62,9 @@
 
   <!-- particles background -->
   <script src="app.js"></script>
-  <script>
-    if (window.MathHub && typeof MathHub.initParticles === "function") {
-      MathHub.initParticles();
-    }
-  </script>
+  <script> window.MathHub && MathHub.initParticles && MathHub.initParticles(); </script>
 
-  <!-- NT loader (tự load 00..04 và gọi MathHub.NT.init()) -->
+  <!-- NT loader: đặt CUỐI BODY để chắc chắn DOM đã có -->
   <script src="assets/js/nt/nt-loader.js"></script>
 </body>
 </html>
