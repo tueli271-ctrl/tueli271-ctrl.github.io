@@ -56,3 +56,16 @@ MathHub.NT.init = function initNT() {
   MathHub.NT.readFilterState();
   MathHub.NT.renderList();
 });
+/* NT selected chips: nổi bật màu xanh */
+body.theme-nt .tax-chip input:checked + span{
+  border-color: var(--accent);
+  background: rgba(59,130,246,.22);
+  color: rgba(255,255,255,.95);
+  box-shadow: 0 0 0 1px rgba(59,130,246,.35),
+              0 0 26px rgba(59,130,246,.20);
+}
+body.theme-nt .tax-chip input:checked + span::before{
+  content:"✓";
+  font-weight: 950;
+  opacity: .9;
+}
