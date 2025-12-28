@@ -1,4 +1,7 @@
 // assets/js/nt/02-nt-taxonomy.js
+window.MathHub = window.MathHub || {};
+MathHub.NT = MathHub.NT || {};
+
 MathHub.NT.taxonomy = {
   difficulties: ["N1", "N2", "N3", "N4", "N5"],
   topics: ["Chia hết", "Đồng dư", "Ước số", "Hàm số học", "Phương trình", "BĐT số học"],
