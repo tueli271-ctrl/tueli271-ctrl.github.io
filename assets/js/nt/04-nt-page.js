@@ -1,71 +1,75 @@
 // assets/js/nt/04-nt-page.js
-MathHub.NT.init = function initNT() {
-  const { qs, qsa } = MathHub.NT;
+window.MathHub = window.MathHub || {};
+MathHub.NT = MathHub.NT || {};
 
-  // 1) build taxonomy từ posts
-  if (typeof MathHub.NT.buildTaxonomy === "function") {
-    MathHub.NT.buildTaxonomy();
-  }
+(function () {
+  const U = MathHub.NT.util;
 
-  // 2) render taxonomy panel
-  MathHub.NT.renderTaxPanel();
+  MathHub.NT.readFilterState = function readFilterState() {
+    const st = MathHub.NT.state;
+    st.filters.difficulty.clear();
+    st.filters.topic.clear();
+    st.filters.method.clear();
 
-  // 3) render list lần đầu
-  MathHub.NT.readFilterState();
-  MathHub.NT.renderList();
-
-  // 4) toggle panel
-  const toggleBtn = qs("#ntTaxToggle");
-  const panel = qs("#ntTaxPanel");
-  if (toggleBtn && panel) {
-    toggleBtn.addEventListener("click", () => {
-      panel.classList.toggle("tax-hidden");
+    U.qsa("#ntTaxPanel input[type='checkbox']").forEach(inp => {
+      if (!inp.checked) return;
+      const g = inp.getAttribute("data-group");
+      const v = inp.value;
+      if (g && st.filters[g]) st.filters[g].add(v);
     });
-  }
+  };
 
-  // 5) filter change
-  if (panel) {
-  panel.addEventListener("change", (e) => {
-    // SFX (nếu có)
-    if (window.MathHub && MathHub.SFX && typeof MathHub.SFX.play === "function") {
-      const t = e.target;
-      if (t && t.matches && t.matches('input[type="checkbox"]')) {
-        MathHub.SFX.play(t.checked ? "select" : "unselect");
-      } else {
-        MathHub.SFX.play("click");
-      }
+  MathHub.NT.bindEvents = function bindEvents() {
+    const toggleBtn = U.qs("#ntToggleTax");
+    const clearBtn = U.qs("#ntClearFilters");
+    const taxPanel = U.qs("#ntTaxPanel");
+
+    // toggle panel
+    if (toggleBtn && taxPanel) {
+      toggleBtn.addEventListener("click", () => {
+        U.tick(740, 0.05);
+        MathHub.NT.state.ui.open = !MathHub.NT.state.ui.open;
+        taxPanel.style.display = MathHub.NT.state.ui.open ? "" : "none";
+      });
     }
 
+    // change filters (delegation)
+    if (taxPanel) {
+      taxPanel.addEventListener("change", (e) => {
+        if (e.target && e.target.matches("input[type='checkbox']")) {
+          U.tick(820, 0.045);
+          MathHub.NT.readFilterState();
+          MathHub.NT.renderList();
+        }
+      });
+
+      // thêm tick ngay lúc click label (mượt hơn)
+      taxPanel.addEventListener("click", (e) => {
+        const lab = e.target && e.target.closest && e.target.closest(".tax-chip");
+        if (lab) U.tick(820, 0.03);
+      });
+    }
+
+    // clear filters
+    if (clearBtn && taxPanel) {
+      clearBtn.addEventListener("click", () => {
+        U.tick(520, 0.07);
+        U.qsa("#ntTaxPanel input[type='checkbox']").forEach(i => (i.checked = false));
+        MathHub.NT.readFilterState();
+        MathHub.NT.renderList();
+      });
+    }
+  };
+
+  MathHub.NT.init = function init() {
+    // 1) render taxonomy
+    MathHub.NT.renderTaxonomy();
+
+    // 2) bind events
+    MathHub.NT.bindEvents();
+
+    // 3) render list lần đầu
     MathHub.NT.readFilterState();
     MathHub.NT.renderList();
-  });
-}
-
-
-  // 6) clear filters
-  const clearBtn = qs("#ntClearFilters");
-  if (clearBtn && panel) {
-    clearBtn.addEventListener("click", () => {
-  qsa('#ntTaxPanel input[type="checkbox"]').forEach(i => (i.checked = false));
-
-  // SFX
-  if (window.MathHub && MathHub.SFX && typeof MathHub.SFX.play === "function") {
-    MathHub.SFX.play("clear");
-  }
-
-  MathHub.NT.readFilterState();
-  MathHub.NT.renderList();
-});
-/* NT selected chips: nổi bật màu xanh */
-body.theme-nt .tax-chip input:checked + span{
-  border-color: var(--accent);
-  background: rgba(59,130,246,.22);
-  color: rgba(255,255,255,.95);
-  box-shadow: 0 0 0 1px rgba(59,130,246,.35),
-              0 0 26px rgba(59,130,246,.20);
-}
-body.theme-nt .tax-chip input:checked + span::before{
-  content:"✓";
-  font-weight: 950;
-  opacity: .9;
-}
+  };
+})();
