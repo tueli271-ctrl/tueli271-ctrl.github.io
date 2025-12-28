@@ -2,11 +2,11 @@
 window.MathHub = window.MathHub || {};
 MathHub.NT = MathHub.NT || {};
 
-// Danh sách bài Số học (chỉ đề bài)
+// Danh sách bài Số học (chỉ đề, có LaTeX)
 MathHub.NT.posts = [
   {
     id: 1,
-    title: "PT Diophantine: (x^2+2y^2)^2 - 2(z^2+2t^2)^2 = 1",
+    title: "Phương trình Diophantine (dạng chuẩn tách bình phương)",
     difficulty: "N4",
     topics: ["Phương trình", "Đồng dư"],
     methods: ["Số học modulo"],
@@ -23,7 +23,7 @@ MathHub.NT.posts = [
 
   {
     id: 2,
-    title: "Wieferich: p^2 | (2^{p-1}-1) ⇒ (p-1)(p!+2^n) có ≥3 ước nguyên tố",
+    title: "Wieferich: \\(p^2\\mid(2^{p-1}-1)\\) và ước nguyên tố của \\((p-1)(p!+2^n)\\)",
     difficulty: "N5",
     topics: ["Chia hết", "Đồng dư"],
     methods: ["Số học modulo", "Ước - bội"],
@@ -44,7 +44,7 @@ p^{2}\\mid\\bigl(2^{p-1}-1\\bigr).
 
   {
     id: 3,
-    title: "Dãy truy hồi mod 2023: tìm chu kỳ h nhỏ nhất",
+    title: "Dãy truy hồi: chu kỳ modulo \\(2023\\)",
     difficulty: "N4",
     topics: ["Đồng dư"],
     methods: ["Số học modulo"],
@@ -61,7 +61,7 @@ a_0=20,\\qquad a_1=100,\\qquad a_{n+2}=4a_{n+1}+5a_n+20\\quad \\forall n\\in\\ma
 
   {
     id: 4,
-    title: "Hàm sigma: I(n)=σ(n)/n=(p+2)/p ⇒ n lẻ và là chính phương",
+    title: "Hàm \\(\\sigma\\): điều kiện \\(I(n)=\\sigma(n)/n=(p+2)/p\\)",
     difficulty: "N4",
     topics: ["Hàm số học", "Ước số"],
     methods: ["Ước - bội"],
@@ -78,7 +78,7 @@ I(n)=\\frac{\\sigma(n)}{n}=\\frac{p+2}{p}.
 
   {
     id: 5,
-    title: "Hàm sigma: chứng minh I(4n) ≥ 7/4 và xét dấu bằng",
+    title: "Bất đẳng thức với \\(I(n)=\\sigma(n)/n\\): \\(I(4n)\\ge 7/4\\)",
     difficulty: "N3",
     topics: ["Hàm số học", "Ước số"],
     methods: ["Ước - bội"],
@@ -100,7 +100,7 @@ I(4n)\\ge \\frac{7}{4}\\qquad \\forall\\,n\\in\\mathbb{Z}_{>0}.
 
   {
     id: 6,
-    title: "Dãy truy hồi: tồn tại ước nguyên tố q | a_{2026p} sao cho q ∤ p·a_{2026}",
+    title: "Dãy truy hồi: ước nguyên tố của \\(a_{2026p}\\)",
     difficulty: "N5",
     topics: ["Chia hết", "Đồng dư"],
     methods: ["Số học modulo", "Ước - bội"],
