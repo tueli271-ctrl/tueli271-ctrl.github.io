@@ -45,5 +45,5 @@ Vì \\(2^m+1 \\mid 2^{2^n}+1\\) khi và chỉ khi \\(m=2^k\\le 2^n\\) (tức \\(
 Trong \\([1,2025]\\) có các \\(m\\) là lũy thừa của 2: \\(1,2,4,\\dots,1024\\).  
 Với mỗi \\(m=2^k\\) thì mọi \\(n\\ge k\\) đều thỏa, nên có vô hạn cặp.
 `
-}
+},
 ];
