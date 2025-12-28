@@ -1,3 +1,9 @@
+/* =========================
+   08 - Responsive + Pages
+   - Responsive home grid
+   - Taxonomy (filter panel)
+========================= */
+
 /* Responsive */
 @media (max-width: 980px){
   .home-grid{ grid-template-columns: repeat(2, 1fr); }
@@ -9,7 +15,7 @@
 }
 
 /* =========================
-   Algebra - Taxonomy (Thể loại)
+   Taxonomy (Thể loại) - dùng cho Algebra/NT...
 ========================= */
 .taxbar{
   display:flex;
@@ -26,6 +32,7 @@
   padding: 14px;
 }
 
+/* giữ tương thích code cũ: class này vẫn ẩn panel */
 .tax-hidden{ display:none; }
 
 .taxgrid{
@@ -58,12 +65,13 @@
   gap:8px;
 }
 
-/* Chip: input + span */
+/* Chip: label > input + span */
 .tax-chip{
   display:inline-flex;
   align-items:center;
   cursor:pointer;
   user-select:none;
+  position:relative;
 }
 
 .tax-chip input{
@@ -83,7 +91,15 @@
   color: rgba(255,255,255,.86);
   font-weight: 800;
   font-size: 13px;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+
+/* dot nhỏ (tùy bạn có render hay không) */
+.tax-chip span .dot{
+  width:8px; height:8px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.35);
+  box-shadow: 0 0 0 3px rgba(255,255,255,.05);
 }
 
 .tax-chip span:hover{
@@ -92,19 +108,31 @@
   border-color: rgba(255,255,255,.16);
 }
 
-body.theme-nt .tax-chip input:checked + span{
-  border-color: var(--accent);
-  background: rgba(59,130,246,.22); /* #3b82f6 của NT */
+/* ✅ CHECKED: đổi màu rõ ràng theo accent + có dấu ✓ */
+.tax-chip input:checked + span{
+  border-color: color-mix(in srgb, var(--accent) 70%, rgba(255,255,255,.22));
+  background:
+    radial-gradient(140px 90px at 25% 35%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
   color: rgba(255,255,255,.95);
-  box-shadow: 0 0 0 1px rgba(59,130,246,.35),
-              0 0 26px rgba(59,130,246,.20);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06),
+    0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent),
+    0 0 26px rgba(0,0,0,.25);
 }
 
-/* thêm dấu check để nhìn phát biết đã chọn */
-body.theme-nt .tax-chip input:checked + span::before{
+.tax-chip input:checked + span .dot{
+  background: var(--accent2);
+  box-shadow: 0 0 0 3px rgba(255,255,255,.06),
+              0 0 14px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* dấu tick ở cuối chip */
+.tax-chip input:checked + span::after{
   content:"✓";
   font-weight: 950;
-  opacity: .9;
+  opacity: .92;
+  margin-left: 2px;
 }
 
 /* tiny tags shown in list row (optional) */
@@ -134,37 +162,12 @@ body.theme-nt .tax-chip input:checked + span::before{
   background: var(--accent);
   box-shadow: 0 0 0 3px rgba(255,255,255,.05);
 }
-/* =========================
-   Interactions / Animations
-   (append to 05-components.css)
-========================= */
 
-.btn, .pill, .postrow, .tax-chip span{
-  transform: translateZ(0);
-  will-change: transform;
+/* list update effect (nếu bạn dùng class is-updating trong JS) */
+#ntList{
+  transition: opacity .18s ease, transform .18s ease;
 }
-
-/* press */
-.btn:active,
-.pill:active,
-.postrow:active,
-.tax-chip span:active{
-  transform: translateY(0) scale(0.98);
+#ntList.is-updating{
+  opacity: .45;
+  transform: translateY(2px);
 }
-
-/* focus (keyboard) */
-.btn:focus-visible,
-.pill:focus-visible,
-.postrow:focus-visible,
-.tax-chip span:focus-visible{
-  outline: 2px solid rgba(255,255,255,.22);
-  outline-offset: 2px;
-}
-
-/* a bit smoother hover */
-.btn:hover,
-.pill:hover,
-.postrow:hover{
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
-
