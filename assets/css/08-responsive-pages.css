@@ -92,10 +92,19 @@
   border-color: rgba(255,255,255,.16);
 }
 
-.tax-chip input:checked + span{
-  border-color: rgba(255,255,255,.22);
-  background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 0 30px rgba(0,0,0,.25);
+body.theme-nt .tax-chip input:checked + span{
+  border-color: var(--accent);
+  background: rgba(59,130,246,.22); /* #3b82f6 của NT */
+  color: rgba(255,255,255,.95);
+  box-shadow: 0 0 0 1px rgba(59,130,246,.35),
+              0 0 26px rgba(59,130,246,.20);
+}
+
+/* thêm dấu check để nhìn phát biết đã chọn */
+body.theme-nt .tax-chip input:checked + span::before{
+  content:"✓";
+  font-weight: 950;
+  opacity: .9;
 }
 
 /* tiny tags shown in list row (optional) */
