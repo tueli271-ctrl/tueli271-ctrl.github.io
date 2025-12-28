@@ -1,9 +1,7 @@
 // assets/js/nt/nt-loader.js
 (function () {
-  // Thư mục chứa các file con của NT
-  const base = "assets/js/nt/";
+  const base = new URL("./", document.currentScript.src).toString();
 
-  // Danh sách file con (chạy theo đúng thứ tự)
   const files = [
     "00-nt-core.js",
     "01-nt-data.js",
@@ -12,30 +10,37 @@
     "04-nt-page.js",
   ];
 
-  // Hàm nạp 1 file script
-  function loadScript(src) {
+  function loadScript(name) {
+    const src = base + name;
     return new Promise((resolve, reject) => {
       const s = document.createElement("script");
       s.src = src;
-      s.onload = resolve;
-      s.onerror = () => reject(new Error("Load failed: " + src));
+      s.onload = () => resolve(src);
+      s.onerror = () => reject(new Error("NT load failed: " + src));
       document.head.appendChild(s);
     });
   }
 
-  // Nạp lần lượt từng file con, rồi gọi init
-  async function loadAll() {
-    for (const f of files) {
-      await loadScript(base + f);
-    }
+  (async function () {
+    try {
+      for (const f of files) await loadScript(f);
 
-    // Sau khi nạp xong, chạy trang NT
-    if (window.MathHub && MathHub.NT && typeof MathHub.NT.init === "function") {
-      MathHub.NT.init();
-    } else {
-      console.warn("[NT] Missing MathHub.NT.init()");
+      if (window.MathHub && MathHub.NT && typeof MathHub.NT.init === "function") {
+        MathHub.NT.init();
+      } else {
+        console.warn("[NT] MathHub.NT.init() missing");
+      }
+    } catch (err) {
+      console.error(err);
+      // hiện lỗi ngay trên trang để bạn biết thiếu file nào
+      const panel = document.getElementById("ntTaxPanel");
+      const list = document.getElementById("ntList");
+      const msg = `<div style="padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,0,0,.08)">
+        <b>NT Loader lỗi:</b> ${String(err.message)}
+        <div style="margin-top:8px;opacity:.85">Kiểm tra lại tên file / đường dẫn trong assets/js/nt/</div>
+      </div>`;
+      if (panel) panel.innerHTML = msg;
+      if (list) list.innerHTML = msg;
     }
-  }
-
-  loadAll().catch(console.error);
+  })();
 })();
