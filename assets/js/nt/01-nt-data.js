@@ -12,7 +12,7 @@ MathHub.NT.posts = [
   {
     id: "nt-02",
     num: "02",
-    title: "Bài mẫu: Đồng dư nâng dần",
+    title: "Bài mẫu: Đồng dư",
     difficulty: "N2",
     topic: "Đồng dư",
     method: ["Số học modulo"],
@@ -21,10 +21,10 @@ MathHub.NT.posts = [
   {
     id: "nt-03",
     num: "03",
-    title: "Bài mẫu: LTE cơ bản",
+    title: "Bài mẫu: LTE",
     difficulty: "N3",
     topic: "Hàm số học",
     method: ["LTE"],
     href: "view.html?id=nt-03"
-  }
+  },
 ];
