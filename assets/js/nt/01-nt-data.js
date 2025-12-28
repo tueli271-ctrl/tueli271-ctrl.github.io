@@ -1,30 +1,30 @@
 // assets/js/nt/01-nt-data.js
+window.MathHub = window.MathHub || {};
+MathHub.NT = MathHub.NT || {};
+
 MathHub.NT.posts = [
   {
-    id: "nt-01",
-    num: "01",
-    title: "Bài mẫu: Chia hết cơ bản",
+    id: 1,
+    title: "Chia hết cơ bản",
     difficulty: "N1",
-    topic: "Chia hết",
-    method: ["Đồng dư", "Ước - bội"],
-    href: "view.html?id=nt-01"
+    topics: ["Chia hết", "Ước số"],
+    methods: ["Ước - bội"],
+    href: "view.html?src=nt&id=1",
   },
   {
-    id: "nt-02",
-    num: "02",
-    title: "Bài mẫu: Đồng dư",
+    id: 2,
+    title: "Đồng dư – bài mở đầu",
     difficulty: "N2",
-    topic: "Đồng dư",
-    method: ["Số học modulo"],
-    href: "view.html?id=nt-02"
+    topics: ["Đồng dư"],
+    methods: ["Số học modulo"],
+    href: "view.html?src=nt&id=2",
   },
   {
-    id: "nt-03",
-    num: "03",
-    title: "Bài mẫu: LTE",
+    id: 3,
+    title: "LTE nhập môn",
     difficulty: "N3",
-    topic: "Hàm số học",
-    method: ["LTE"],
-    href: "view.html?id=nt-03"
+    topics: ["Đồng dư", "Hàm số học"],
+    methods: ["LTE"],
+    href: "view.html?src=nt&id=3",
   },
 ];
