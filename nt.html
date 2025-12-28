@@ -47,25 +47,29 @@
         <a class="btn" id="ntClearFilters" href="javascript:void(0)">Xoá lọc</a>
       </div>
 
-      <!-- Panel 3 cột (Độ khó / Thể loại / Cách làm) sẽ được JS đổ vào -->
-      <div id="ntTaxPanel" class="taxpanel"></div>
+      <!-- JS sẽ đổ 3 cột vào đây -->
+      <div id="ntTaxPanel" class="taxpanel tax-hidden"></div>
     </section>
 
     <section class="panel section">
       <h2>📌 Danh sách bài</h2>
 
-      <!-- Danh sách bài sẽ được JS đổ vào -->
+      <!-- JS sẽ đổ danh sách bài vào đây -->
       <div id="ntList" class="postlist"></div>
     </section>
 
     <footer>© 2025 • Math Hub</footer>
   </main>
 
-  <!-- particles -->
+  <!-- particles background -->
   <script src="app.js"></script>
-  <script> if (window.MathHub && MathHub.initParticles) MathHub.initParticles(); </script>
+  <script>
+    if (window.MathHub && typeof MathHub.initParticles === "function") {
+      MathHub.initParticles();
+    }
+  </script>
 
-  <!-- NT modules loader (tự load 00..04 và tự gọi MathHub.NT.init()) -->
+  <!-- NT loader (tự load 00..04 và gọi MathHub.NT.init()) -->
   <script src="assets/js/nt/nt-loader.js"></script>
 </body>
 </html>
