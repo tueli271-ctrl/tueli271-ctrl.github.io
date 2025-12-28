@@ -171,3 +171,14 @@
   opacity: .45;
   transform: translateY(2px);
 }
+/* Make taxonomy text match post list style */
+.taxcol h3{
+  font-weight: 850;      /* gần với .label */
+  letter-spacing: 0;
+}
+
+.tax-chip span{
+  font-weight: 850;      /* giống .tax-pill / .label */
+  font-size: 13px;       /* hoặc 12.5px tuỳ bạn */
+  letter-spacing: 0;
+}
