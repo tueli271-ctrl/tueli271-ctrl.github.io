@@ -1,78 +1,120 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Math Hub • Trang chủ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài tập Toán 11</title>
 
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="stylesheet" href="assets/css/style.css" />
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 
-<body class="theme-home" data-page="home">
-  <div class="bg-aurora"></div>
-  <canvas id="bg"></canvas>
-
+<body>
   <header class="topbar">
-    <div class="inner">
-      <div class="brand">
-        <div class="logo"><img src="assets/img/favicon.png" alt="logo"></div>
-        <div>Math Hub</div>
-      </div>
+    <a class="brand" href="index.html">
+      <span class="logo">11</span>
+      <span>Bài tập Toán 11</span>
+    </a>
 
-      <nav class="navlinks">
-        <a class="pill" href="index.html">Trang chủ</a>
-        <a class="pill" href="algebra.html">Đại số</a>
-        <a class="pill" href="combi.html">Tổ hợp</a>
-        <a class="pill" href="geo.html">Hình học</a>
-        <a class="pill" href="nt.html">Số học</a>
-      </nav>
-    </div>
+    <nav class="nav">
+      <a href="index.html">Trang chủ</a>
+      <a href="problems.html">Kho bài tập</a>
+      <a href="#about">Giới thiệu</a>
+    </nav>
   </header>
 
-  <main class="wrap">
-    <section class="panel pagehead">
-      <div class="left">
-        <h1>Trang chủ</h1>
-        <p>Chọn mảng bạn muốn xem. Mỗi mảng có danh sách bài và trang đọc bài có MathJax.</p>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="tag">Tổng hợp bài tập lớp 11</p>
+        <h1>Kho bài tập Toán 11 có phân loại, tìm kiếm và lời giải.</h1>
+        <p class="desc">
+          Trang web này dùng để lưu trữ bài tập theo chuyên đề: Đại số - Giải tích,
+          Hình học, Tổ hợp - Xác suất và Đề tổng hợp.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="problems.html">Vào kho bài tập</a>
+          <a class="btn ghost" href="#subjects">Xem chuyên đề</a>
+        </div>
       </div>
-      <div class="badge"><span class="dot"></span> Math Hub</div>
-    </section>
 
-    <section class="panel section">
-      <h2>📚 4 mảng</h2>
-
-      <div class="home-grid">
-        <a class="book algebra" href="algebra.html">
-          <div class="t">Đại số</div>
-          <div class="d">PT • BĐT • Đa thức • Hàm số</div>
-          <div class="arrow">Vào xem →</div>
-        </a>
-
-        <a class="book combi" href="combi.html">
-          <div class="t">Tổ hợp</div>
-          <div class="d">Đếm • Bất biến • Dirichlet • Graph</div>
-          <div class="arrow">Vào xem →</div>
-        </a>
-
-        <a class="book geo" href="geo.html">
-          <div class="t">Hình học</div>
-          <div class="d">Tam giác • Đường tròn • Bổ đề</div>
-          <div class="arrow">Vào xem →</div>
-        </a>
-
-        <a class="book nt" href="nt.html">
-          <div class="t">Số học</div>
-          <div class="d">Chia hết • Đồng dư • LTE • Ước</div>
-          <div class="arrow">Vào xem →</div>
-        </a>
+      <div class="hero-card">
+        <h3>Bài mới nhất</h3>
+        <div id="latestProblems" class="latest-list"></div>
       </div>
     </section>
 
-    <footer>© 2025 • Math Hub</footer>
+    <section class="stats">
+      <div class="stat-card">
+        <strong id="totalProblems">0</strong>
+        <span>Tổng số bài</span>
+      </div>
+      <div class="stat-card">
+        <strong>4</strong>
+        <span>Chuyên đề</span>
+      </div>
+      <div class="stat-card">
+        <strong>MathJax</strong>
+        <span>Hỗ trợ công thức</span>
+      </div>
+    </section>
+
+    <section id="subjects" class="section">
+      <div class="section-title">
+        <h2>Chuyên đề lớp 11</h2>
+        <p>Chọn một mảng kiến thức để luyện tập.</p>
+      </div>
+
+      <div class="subject-grid">
+        <a class="subject-card algebra" href="problems.html?category=algebra">
+          <h3>Đại số - Giải tích</h3>
+          <p>Dãy số, giới hạn, đạo hàm, lượng giác, phương trình.</p>
+        </a>
+
+        <a class="subject-card geo" href="problems.html?category=geometry">
+          <h3>Hình học</h3>
+          <p>Quan hệ song song, vuông góc, góc, khoảng cách trong không gian.</p>
+        </a>
+
+        <a class="subject-card combi" href="problems.html?category=combinatorics">
+          <h3>Tổ hợp - Xác suất</h3>
+          <p>Quy tắc đếm, chỉnh hợp, tổ hợp, nhị thức Newton, xác suất.</p>
+        </a>
+
+        <a class="subject-card exam" href="problems.html?category=exam">
+          <h3>Đề tổng hợp</h3>
+          <p>Các đề ôn tập, đề kiểm tra, đề nâng cao và đề HSG.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <h2>Giới thiệu</h2>
+      <p>
+        Đây là website tĩnh chạy bằng GitHub Pages. Bạn chỉ cần thêm bài mới trong file
+        <code>assets/js/data.js</code>, web sẽ tự hiển thị ở trang kho bài tập.
+      </p>
+    </section>
   </main>
 
-  <!-- JS: app điều phối -->
-  <script src="assets/js/app.js"></script>
+  <footer class="footer">
+    © 2026 - Bài tập Toán 11
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
